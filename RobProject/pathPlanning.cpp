@@ -33,8 +33,9 @@ using namespace rwlibs::proximitystrategies;
 #define MAXTIME 10.
 #define DEBUG 0
 #define OUT 1
+#define ONLYRRT 0
 
-#define LimitSphere 1.5  // REAL 40.25  //sqrt(20²+8²+34²)
+#define TableXSurface -0.7 //1.5  // REAL 40.25  //sqrt(20²+8²+34²)
 
 #define Extend 0.05
 
@@ -72,6 +73,32 @@ Transform3D<> getPoint(WorkCell::Ptr wc,Device::Ptr device, const State &state, 
     return Kinematics::worldTframe(wc->findFrame("PG70"), testState);
 }
 
+
+/**
+ * Distance:
+ **/
+double distance(Transform3D<> pT1, Transform3D<> pT2) {
+
+    Vector3D<> p1 = pT1.P();
+    Vector3D<> p2 = pT2.P();
+    Vector3D<> d = Vector3D<>(dot(p2.x(),p2)-dot(p1.x(),p1),dot(p2.y(),p2)-dot(p1.y(),p1),dot(p2.z(),p2)-dot(p1.z(),p1));
+    return d.norm2();
+}
+
+double getTdistance(rw::trajectory::QPath path,WorkCell::Ptr wc,Device::Ptr device, const State &state) {
+
+    double total = 0;
+    for (QPath::iterator it = path.begin(); it < (path.end()-1); it++) {
+        Q first = *(it);
+        Q second =*(it+1) ;
+
+        total += distance(getPoint(wc,device, state, first) , getPoint(wc,device, state, second) );
+
+    }
+    return total;
+}
+
+
 /**
  * CheckBorder: Check if given a Q value of the robot the x,y,z point is inside of the Static Zone
  **/
@@ -79,9 +106,7 @@ bool checkBorder(WorkCell::Ptr wc,Device::Ptr device, const State &state, const 
     // Alternatively check .x() .y() .z()
     Transform3D<> point3D = getPoint(wc,device, state, q);
     Vector3D<> d = point3D.P();
-    //cout << d.norm2() << endl;
-    //if (d.norm2() >= LimitSphere)
-    if (d.norm2() <= LimitSphere)
+    if (dot(d,d.x()) <= TableXSurface)
         return false;
     return true;
 }
@@ -103,7 +128,8 @@ Q inverseKinematics(const Device::Ptr device, const SerialDevice::Ptr sdevice, c
             cout << "SOLUTION RETURNED!!!!!!!" << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl;
         return solutions[0];
 }
-  rw::trajectory::QPath linearInterpolatedPath(const rw::math::Q& start, const rw::math::Q& end,
+
+rw::trajectory::QPath linearInterpolatedPath(const rw::math::Q& start, const rw::math::Q& end,
                                                const double total_duration = 10.0, const double duration_step = 1.0)
   {
     rw::trajectory::QLinearInterpolator interpolator(start, end, total_duration);
@@ -139,7 +165,40 @@ QPath prmPath(PRMPlanner* prm, WorkCell::Ptr wc,Transform3D<> start, Transform3D
         return 0;
 
     /*** Evaluation and Path calculation ***/
-    cout << "Calculate path from " << from << " to " << to << endl;
+    if (DEBUG ==1)
+        cout << "Calculate PRM path from " << from << " to " << to << endl;
+
+    //Call planner
+    prm->query(from,to,path,MAXTIME);
+
+    return path;
+  }
+/**
+   * PRM Planner for Static Zone, the roadmap is calculated outside of the planner
+*/
+QPath prmPath(WorkCell::Ptr wc,Transform3D<> start, Transform3D<> end,Device::Ptr device,SerialDevice::Ptr sdevice,State state,  QMetric::Ptr metric){
+
+    // Constraints
+    QPath path;
+    CollisionDetector detector(wc, ProximityStrategyFactory::makeDefaultCollisionStrategy());
+    PRMPlanner *prm = new PRMPlanner(device.get(), state, &detector, Extend); //input device as (rw::models::Device*)
+    prm->setCollisionCheckingStrategy(PRMPlanner::LAZY);
+    prm->setNeighSearchStrategy(PRMPlanner::BRUTE_FORCE);
+    prm->setShortestPathSearchStrategy(PRMPlanner::A_STAR);
+    prm->buildRoadmap(5000);
+
+    // Calculate Inverse
+    Q from = inverseKinematics(device, sdevice, state, start);
+    Q to = inverseKinematics(device, sdevice, state, end);
+    // First Checking
+    if (!checkCollisions(device, state, detector, from))
+        return 0;
+    if (!checkCollisions(device, state, detector, to))
+        return 0;
+
+    /*** Evaluation and Path calculation ***/
+    if (DEBUG ==1)
+        cout << "Calculate PRM path from " << from << " to " << to << endl;
 
     //Call planner
     prm->query(from,to,path,MAXTIME);
@@ -147,10 +206,11 @@ QPath prmPath(PRMPlanner* prm, WorkCell::Ptr wc,Transform3D<> start, Transform3D
     return path;
   }
 
-/**
+
+/***
  * RRT Planner for Dynamic Zone
- */
-QPath rrtPath(WorkCell::Ptr wc,Transform3D<> start, Transform3D<> end,Device::Ptr device,SerialDevice::Ptr sdevice,State state,  QMetric::Ptr metric){
+ **/
+QPath rrtPath(WorkCell::Ptr wc,Transform3D<> start,Transform3D<>  end,Device::Ptr device,SerialDevice::Ptr sdevice,State state,  QMetric::Ptr metric){
 
   QPath path;
   // Constraints
@@ -169,39 +229,78 @@ QPath rrtPath(WorkCell::Ptr wc,Transform3D<> start, Transform3D<> end,Device::Pt
       return 0;
 
   /*** Evaluation and Path calculation ***/
-  cout << "Calculate path from " << from << " to " << to << endl;
+  if (DEBUG ==1)
+    cout << "Calculate  RRT path from " << from << " to " << to << endl;
 
   rrt->query(from,to,path,MAXTIME); //run planner
 
   return path;
 }
 
+/***
+ * RRT Planner for Dynamic Zone
+ **/
+QPath rrtPath(WorkCell::Ptr wc,Q from,Transform3D<>  end,Device::Ptr device,SerialDevice::Ptr sdevice,State state,  QMetric::Ptr metric){
+
+  QPath path;
+  // Constraints
+  CollisionDetector detector(wc, ProximityStrategyFactory::makeDefaultCollisionStrategy());
+  PlannerConstraint constraint = PlannerConstraint::make(&detector,device,state);
+  QSampler::Ptr sampler = QSampler::makeConstrained(QSampler::makeUniform(device),constraint.getQConstraintPtr());
+  QToQPlanner::Ptr rrt = RRTPlanner::makeQToQPlanner(constraint, sampler, metric, Extend, RRTPlanner::RRTConnect);
+
+  // Calculate Inverse
+  //Q from = inverseKinematics(device, sdevice, state, start);
+  Q to = inverseKinematics(device, sdevice, state, end);
+  // First Checking
+  if (!checkCollisions(device, state, detector, from))
+      return 0;
+  if (!checkCollisions(device, state, detector, to))
+      return 0;
+
+  /*** Evaluation and Path calculation ***/
+  if (DEBUG ==1)
+    cout << "Calculate  RRT path from " << from << " to " << to << endl;
+
+  rrt->query(from,to,path,MAXTIME); //run planner
+
+  return path;
+}
+
+
+
 QPath pathPlanner(PRMPlanner* prm, WorkCell::Ptr wc,Transform3D<> FROM, Transform3D<> TO,Device::Ptr device,SerialDevice::Ptr sdevice,State state,  QMetric::Ptr metric){
 
     int i = 0;
     Q lastCorrect;
     QPath pathPRM, pathRRT,path;
-
-    pathPRM = prmPath(prm,wc,FROM,TO,device,sdevice,state, metric);
-    /*** Output Path ***/
-    for (QPath::iterator it = pathPRM.begin(); it < pathPRM.end(); it++) {
-        //cout << *it << endl;
-        // Check if the points of the path are outside of the Static Zone
-        if (checkBorder(wc,device, state, *it) == 0){
-            if (it == pathPRM.begin())
-                lastCorrect = *(pathPRM.begin());
-            else
-                lastCorrect = *(--it);
-            // Get the point of the new start of the dynamic zone
-            Transform3D<> newStart = getPoint(wc,device, state, lastCorrect);
-                    //NEED TO CHANGE FROM FOR lastCorrect  (and adjust the sphere to worldFrame Values ASK SAlman for How to obtain from now)
-            pathRRT = rrtPath(wc,FROM,TO,device,sdevice,state,metric);
-            // Merge the paths
-            path = QPath(pathPRM.begin(),pathPRM.begin()+i);
-            copy(pathRRT.begin(), pathRRT.end(), std::inserter(path, path.end()));
-            break;
+    if (ONLYRRT == 1){
+        pathRRT = rrtPath(wc,FROM,TO,device,sdevice,state,metric);
+        path = pathRRT;
+    }
+    else {
+        pathPRM = prmPath(prm,wc,FROM,TO,device,sdevice,state, metric);
+        /*** Output Path ***/
+        for (QPath::iterator it = pathPRM.begin(); it < pathPRM.end(); it++) {
+            //cout << *it << endl;
+            // Check if the points of the path are outside of the Static Zone
+            if (checkBorder(wc,device, state, *it) == 0){
+                if (it == pathPRM.begin())
+                    lastCorrect = *(pathPRM.begin());
+                else
+                    lastCorrect = *(--it);
+                // Get the point of the new start of the dynamic zone
+              //  cout << "BARK"<<endl;
+                //cout << lastCorrect<<endl;
+                //Transform3D<> newStart = getPoint(wc,device, state, lastCorrect);
+                pathRRT = rrtPath(wc,lastCorrect,TO,device,sdevice,state,metric);
+                // Merge the paths
+                path = QPath(pathPRM.begin(),pathPRM.begin()+i);
+                copy(pathRRT.begin(), pathRRT.end(), std::inserter(path, path.end()));
+                break;
+            }
+            i++;
         }
-        i++;
     }
   return path;
 }
@@ -210,7 +309,7 @@ QPath pathPlanner(PRMPlanner* prm, WorkCell::Ptr wc,Transform3D<> FROM, Transfor
 int main() {
 
     /*** Load Cell and device ***/
-    const string wcFile = "/home/ali/WorkSpace/RobWork/WorkCells/WorkStation_1/WC1_Scene.wc.xml";
+    const string wcFile = "/home/ali/WorkSpace/Rovi/WorkCell_scenes/WorkStation_Easy/WC1_Scene.wc.xml";
     const string deviceName = "UR1";
     int i = 0;
 
@@ -227,6 +326,70 @@ int main() {
         cerr << "SerialDevice: " << deviceName << " not found!" << endl;
         return 0;
     }
+    //------------------------------------------------------------------------------------------
+        //Points for Easy WorkCell
+
+      /** Points of our Planning **/
+      Vector3D<> sp1(-0.18, -0.06, 0.82); RPY<> sr1(-1.3, -1.5, 1.5);
+      Vector3D<> ep1(0.0, -0.82, 0.28); RPY<> er1(-1.4, 0.0, -3.0);
+      // Transformation Matrix
+      Transform3D<> F1(sp1, sr1.toRotation3D()); Transform3D<> T1(ep1, er1.toRotation3D());
+
+      Vector3D<> sp2(-0.18, -0.06, 0.82); RPY<> sr2(-1.3, -1.5, 1.5);
+      Vector3D<> ep2(0.18, -0.82, 0.28); RPY<> er2(-1.4, 0.0, -3.0);
+      // Transformation Matrix
+      Transform3D<> F2(sp2, sr2.toRotation3D()); Transform3D<> T2(ep2, er2.toRotation3D());
+
+      Vector3D<> sp3(-0.18, -0.06, 0.82); RPY<> sr3(-1.3, -1.5, 1.5);
+      Vector3D<> ep3(0.18, -0.82, 0.28); RPY<> er3(-1.4, 0.0, -3.0);
+      // Transformation Matrix
+      Transform3D<> F3(sp3, sr3.toRotation3D()); Transform3D<> T3(ep3, er3.toRotation3D());
+
+      Vector3D<> sp4(-0.18, -0.06, 0.82); RPY<> sr4(-1.3, -1.5, 1.5);
+      Vector3D<> ep4(0.049, -0.92, 0.178); RPY<> er4(-1.3, -0.3, -3.1);
+      // Transformation Matrix
+      Transform3D<> F4(sp4, sr4.toRotation3D()); Transform3D<> T4(ep4, er4.toRotation3D());
+
+      Vector3D<> sp5(-0.18, -0.06, 0.82); RPY<> sr5(-1.3, -1.5, 1.5);
+      Vector3D<> ep5(0.30, -0.80, 0.28); RPY<> er5(-0.9, 0.0, 2.5);
+      // Transformation Matrix
+      Transform3D<> F5(sp5, sr5.toRotation3D()); Transform3D<> T5(ep5, er5.toRotation3D());
+
+        //--------------------------------------------------------------------------------------------
+
+        //------------------------------------------------------------------------------------------
+
+//        //Points for Medium WorkCell
+//        /** Points of our Planning **/
+//        Vector3D<> sp1(0.0, -0.28, 0.95); RPY<> sr1(-3.1, -1.5, -1.5);
+//        Vector3D<> ep1(0.30, -0.80, 0.27); RPY<> er1(-0.9, 0.0, 2.5);
+//        // Transformation Matrix
+//        Transform3D<> F1(sp1, sr1.toRotation3D()); Transform3D<> T1(ep1, er1.toRotation3D());
+
+//        Vector3D<> sp2(0.0, -0.28, 0.95); RPY<> sr2(-3.1, -1.5, -1.5);
+//        Vector3D<> ep2(0.48, -0.76, 0.24); RPY<> er2(-0.6, -0.2, 2.9);
+//        // Transformation Matrix
+//        Transform3D<> F2(sp2, sr2.toRotation3D()); Transform3D<> T2(ep2, er2.toRotation3D());
+
+//        Vector3D<> sp3(0.0, -0.28, 0.95); RPY<> sr3(-3.1, -1.5, -1.5);
+//        Vector3D<> ep3(-0.35, -0.80, 0.32); RPY<> er3(-0.5, -0.1, 2.8);
+//        // Transformation Matrix
+//        Transform3D<> F3(sp3, sr3.toRotation3D()); Transform3D<> T3(ep3, er3.toRotation3D());
+
+//        Vector3D<> sp4(0.0, -0.28, 0.95); RPY<> sr4(-3.1, -1.5, -1.5);
+//        Vector3D<> ep4(-0.49, -0.74, 0.21); RPY<> er4(0.9, 0.2, -3.0);
+//        // Transformation Matrix
+//        Transform3D<> F4(sp4, sr4.toRotation3D()); Transform3D<> T4(ep4, er4.toRotation3D());
+
+//        Vector3D<> sp5(0.0, -0.28, 0.95); RPY<> sr5(-3.1, -1.5, -1.5);
+//        Vector3D<> ep5(-0.52, -0.76, 0.16); RPY<> er5(0.9, 0.3, -3.1);
+//        // Transformation Matrix
+//        Transform3D<> F5(sp5, sr5.toRotation3D()); Transform3D<> T5(ep5, er5.toRotation3D());
+
+        //--------------------------------------------------------------------------------------------
+        Transform3D<> Sp[] = {F1,F2,F3,F4,F5};
+        Transform3D<> Ep[] = {T1,T2,T3,T4,T5};
+
 
     /***  Get Path  ***/
     // Constraints
@@ -234,61 +397,68 @@ int main() {
     QMetric::Ptr metric = MetricFactory::makeEuclidean<Q>();
     CollisionDetector detector(wc, ProximityStrategyFactory::makeDefaultCollisionStrategy());
     PlannerConstraint constraint = PlannerConstraint::make(&detector,device,state);
-
+    PRMPlanner* prm ;
     // Build the road map just once
-    PRMPlanner* prm = new PRMPlanner(device.get(), state, &detector, Extend); //input device as (rw::models::Device*)
-    prm->setCollisionCheckingStrategy(PRMPlanner::LAZY);
-    prm->setNeighSearchStrategy(PRMPlanner::BRUTE_FORCE);
-    prm->setShortestPathSearchStrategy(PRMPlanner::A_STAR);
-    prm->buildRoadmap(5000);
-
+    if (ONLYRRT == 0) {
+        prm = new PRMPlanner(device.get(), state, &detector, Extend); //input device as (rw::models::Device*)
+        prm->setCollisionCheckingStrategy(PRMPlanner::LAZY);
+        prm->setNeighSearchStrategy(PRMPlanner::BRUTE_FORCE);
+        prm->setShortestPathSearchStrategy(PRMPlanner::A_STAR);
+        prm->buildRoadmap(5000);
+    }
     /*** Change the start/end values and create different queries ***/
-    while (i < 3){
-        i++;
-        local.resetAndResume();
-        // Point Selection //
-        Vector3D<> startP(0.52, -0.05, 0.84);
-        RPY<> startR(-1.6, -0.1, -1.7);
-        //Vector3D<> V1(20, -34, 5); //RPY<> R1(-3, 0, 2); Values obtain from world-PG17 RWS
-        Vector3D<> endP(0.24, -0.85, -0.15);
-        RPY<> endR(-2.8, 1.4, -2.8);
+   // int k = 0;
+   // for (k=0;k<10;k++){
+   //     i = 0;
+        while (i < 5){
 
-        // Transformation Matrix
-        Transform3D<> FROM(startP, startR.toRotation3D());
-        Transform3D<> TO(endP, endR.toRotation3D());
+            local.resetAndResume();
+            // Point Selection //
+            Transform3D<> FROM = Sp[i];
+            Transform3D<> TO = Ep[i];
 
-        // Call to Planer
-        QPath path = pathPlanner(prm, wc,FROM,TO,device,sdevice,state, metric);
+            // Call to Planer
+            QPath path = pathPlanner(prm, wc,FROM,TO,device,sdevice,state, metric);
 
-        /** Path Optimization **/
-        rwlibs::pathoptimization::PathLengthOptimizer PathLengthOptimizer(constraint, metric); // Optimize Pathpranning
-        QPath pathOpti= PathLengthOptimizer.pathPruning(path); // Optimize Path using PathPruning method
-        //QPath pathOpti= PathLengthOptimizer.shortCut(path); // Optimize Path using shortcut method
+            /** Path Optimization **/
+            rwlibs::pathoptimization::PathLengthOptimizer PathLengthOptimizer(constraint, metric); // Optimize Pathpranning
+            QPath pathOpti= PathLengthOptimizer.pathPruning(path); // Optimize Path using PathPruning method
+            //QPath pathOpti= PathLengthOptimizer.shortCut(path); // Optimize Path using shortcut method
 
-        local.pause();
+            local.pause();
 
-        /*** Output Path ***/
-        if (OUT == 1){
-            cout << "Path of length " << path.size() << " found in " << local.getTime() << " seconds." << endl;
-            cout << "Optimized Path of length " << pathOpti.size() << " found "<< endl;
-            if (local.getTime() >= MAXTIME) {
-                cout << "Notice: max time of " << MAXTIME << " seconds reached." << endl;
+            /*** Output Path ***/
+            if (OUT == 1){
+                cout << "Number of Nodes " << path.size() << " found in " << local.getTime() << " seconds." << endl;
+                cout << "Length PATH NO OPT "<<getTdistance(path,wc,device,state)<< endl;
+
+                cout << "Number of Nodes Optimized " << pathOpti.size() << " found "<< endl;
+                cout << "Length PATH OPTI "<<getTdistance(pathOpti,wc,device,state)<< endl;
+                cout << " Total time: " << local.getTime() << " seconds." << endl << endl;
             }
-            // Original Path
-            for (QPath::iterator it = path.begin(); it < path.end(); it++) {
-                cout << *it << endl;
-            }
+                if (OUT == 2){
+                    if (local.getTime() >= MAXTIME) {
+                        cout << "Notice: max time of " << MAXTIME << " seconds reached." << endl;
+                    }
+                    // Original Path
+                    for (QPath::iterator it = path.begin(); it < path.end(); it++) {
+                        cout << *it << endl;
+                    }
 
-            cout << "..." << endl<< endl;
-            // Optimized Path
-            cout << "Optimized Path" << endl;
-            for (QPath::iterator it = pathOpti.begin(); it < pathOpti.end(); it++) {
-                cout << *it << endl;
+                    cout << "..." << endl<< endl;
+
+                    // Optimized Path
+                    cout << "Optimized Path" << endl;
+                    for (QPath::iterator it = pathOpti.begin(); it < pathOpti.end(); it++) {
+                        cout << *it << endl;
+                    }
+
             }
-        }
+            i++;
+        //}
     }
     local.pause();
-    cout << " Total time: ." << total.getTime() << " seconds." << endl;
+    cout << " Total time: " << total.getTime() << " seconds." << endl;
     return 0;
 
 }
