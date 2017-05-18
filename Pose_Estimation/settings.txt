@@ -1,0 +1,22 @@
+0.375 
+0.375					
+500.0
+0.000145
+../pointclouds/alex2.7kScaled.pcd
+../pointclouds/jenga1K.pcd
+SPINIMAGES
+
+
+[Above setting are in following order:]
+
+Norm radius // height of the norm. 0.2 seems to be fast 0.375 seems to be good 
+Spin radius // norm x spin radius gives the square  0.2 seems to be fast 0.375 seems to be good	
+//bigger values give more specificity but also more computation time, on the other hand time vested here, saves time due to less poossible configurations.
+
+Ransac iterations
+Inlier threshold // 0.00000155 has given the best results so far. 
+Scene path
+model path
+Feature extraction method (in capitals)
+
+WHere is bin size?

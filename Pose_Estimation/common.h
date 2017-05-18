@@ -6,17 +6,46 @@
 #include <pcl/common/random.h>
 #include <pcl/filters/voxel_grid.h>
 
-#define NORM_RADIUS		0.03
-#define RANSAC_ITR		500
-#define INLIER_TRSH		0.001
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <math.h>
+
+#include <chrono>
+
+using namespace std::chrono;
+using namespace std;
+using namespace pcl;
+using std::cout;
+using std::ifstream;
+using std::string;
+
+// for timestamps
+time_t _tm =time(NULL );
+struct tm * curtime = localtime ( &_tm );
+
+//Ouput file stream for the logging
+ofstream ofs("../PoseEstimation_Log.txt",ios_base::app| ios_base::out);
+
+//initializing parameter settings
+string SCENE_PATH="\0";
+string MODEL_PATH="\0";
+string METHOD="\0";
+float NORM_RADIUS = 0.0;
+float SPIN_RADIUS = 0.0;
+float RANSAC_ITR = 0.0;
+float INLIER_TRSH = 0.0;
+
 
 /***** This file contains the following functions *****/
 pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float normRadius = -1);
 Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene, pcl::Correspondences corr, int ransacItr = -1, int inlierTrsh = -1);
 void DownSampler(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_out);
+void Load_Settings(); //function definition placeholder
 
+//Compute normals function
 pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float normRadius) {
-	//If no raduis is specified for calculating the normals, use the standard value defined in the beginning of this file 
+	//If no raduis is specified for calculating the normals, use the standard value defined in the beginning of this file
 	if (normRadius == -1)
 		normRadius = NORM_RADIUS;
 
@@ -31,31 +60,42 @@ pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 
 	//Compute the cloud normals
 	pcl::PointCloud<pcl::Normal> cloudNormals;
-	normalEstimator.compute(cloudNormals);		
+	normalEstimator.compute(cloudNormals);
 
 	return cloudNormals;
 }
 
+//Ransac
 
 Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene, pcl::Correspondences corr, int ransacItr, int inlierTrsh) {
+	cout << "Starting RANSAC..." << '\n';
+  cout.flush();
+
 	//If number of iterations and inlier treshold not given, use the standard values in the beginning of this file
+/*
 	if (ransacItr == -1)
 		ransacItr = RANSAC_ITR;
 	if (inlierTrsh == -1)
 		inlierTrsh = INLIER_TRSH;
+*/
+	Eigen::Matrix4f pose = Eigen::Matrix4f::Identity();
+	while (true)
+	{
 	//Prepare for RANSAC
     	pcl::search::KdTree<pcl::PointXYZ> scene_tree;			//Create a k-d tree for scene
     	scene_tree.setInputCloud(scene);
-	Eigen::Matrix4f pose = Eigen::Matrix4f::Identity();		//Create Matrix to save the pose
+	//Create Matrix to save the pose
 	pcl::PointCloud<pcl::PointXYZ>::Ptr model_aligned(new pcl::PointCloud<pcl::PointXYZ>);		//Create a new point cloud for the aligned result
+// Start RANSAC
 	float penalty = FLT_MAX;
+	int RANSACS=0;
+	size_t INLIERS = 0;
 
-	// Start RANSAC
 	pcl::common::UniformGenerator<int> gen(0, corr.size() - 1);	//UniformGenerator produces random value
 
-	for(size_t i = 0; i < ransacItr; ++i) {
+	for(size_t i = 0; i < RANSAC_ITR; ++i) {
 		if((i + 1) % 100 == 0)
-			cout << "\t" << "Iteration " << i+1 << " of " << ransacItr << endl;
+			cout << "\t" << "Iteration " << i+1 << " of " << RANSAC_ITR << endl;
 
 		// Sample 3 random correspondences
 		std::vector<int> model_id(3);
@@ -70,7 +110,7 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 		Eigen::Matrix4f transformation_matrix;
 		pcl::registration::TransformationEstimationSVD<pcl::PointXYZ, pcl::PointXYZ> transformation_est;
 		transformation_est.estimateRigidTransformation(*model, model_id, *scene, scene_id, transformation_matrix);
-            
+
 		// Apply pose
 		transformPointCloud(*model, *model_aligned, transformation_matrix);
 
@@ -78,7 +118,7 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 		std::vector<std::vector<int> > idx;
 		std::vector<std::vector<float> > distsq;
 		scene_tree.nearestKSearch(*model_aligned, std::vector<int>(), 1, idx, distsq);
-            
+
 		// Compute inliers and RMSE
 		size_t inliers = 0;
 		float rmse = 0;
@@ -97,7 +137,57 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 			cout << "\t" << "New pose found with " << inliers << " inliers." << endl;
 			penalty = penaltyi;
 			pose = transformation_matrix;
+			INLIERS= inliers;
+			RANSACS=i;
 		}
+	}
+
+	float RANSACSCORE = (INLIERS/INLIER_TRSH)/pow(10,7);
+	// Apply best pose found
+	cout << "\t" << "Applying best pose with inliers: " << INLIERS << '\n' << "\n";
+	cout << "\t" << "Score: "<<RANSACSCORE<< " inliers pr. threshold.\n";
+	clog << "After " << RANSACS <<" Ransac iterarions:\n";
+	clog << "\t Best pose found has "<<INLIERS<< " inliers." <<"\n";
+	clog << "\t Score: "<<RANSACSCORE<< " inliers pr. threshold.\n" << "\n";
+	cout.flush();
+	clog.flush();
+
+	transformPointCloud(*model, *model_aligned, pose);
+
+
+	//View result
+	visualization::PCLVisualizer result_viewer("Result");
+	result_viewer.addPointCloud<PointXYZ>(model_aligned, "Model aligned");
+	result_viewer.addPointCloud<PointXYZ>(scene, "Scene");
+	result_viewer.spin();
+
+	cout << "<------------------------------------------->\n \n";
+
+
+	string input=("1");
+	//int NEW_RANSAC_ITR=0;
+	cout << "Input new Ransac Inlier threshold (float), or Press [0] to exit\n";
+	getline(cin, input);
+	float NEW_INLIER_TRSH =1.0;
+	NEW_INLIER_TRSH = stof(input.c_str());
+	if (NEW_INLIER_TRSH == 0.0)
+	{
+	  cout << "exiting...";
+	  cout.flush();
+	  sleep(1);
+	  break;
+	}
+
+	cout <<  "How many Ransac iterations? (int) \n";
+			getline(cin, input);
+			int NEW_RANSAC_ITR= atoi(input.c_str());
+	clog << "Reusing Spin Images with Inlier threshold of: \n\t" << NEW_INLIER_TRSH << " and " <<NEW_RANSAC_ITR << " ransac iterations \n";
+	cout.flush();
+	clog.flush();
+
+	INLIER_TRSH=NEW_INLIER_TRSH;
+	RANSAC_ITR=NEW_RANSAC_ITR;
+
 	}
 
 	return pose;
@@ -110,6 +200,42 @@ void DownSampler(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, pcl::PointCloud<p
   downSampler.setInputCloud (cloud_in);
   downSampler.setLeafSize (0.19f, 0.19f, 0.19f);
   downSampler.filter(*cloud_out);
+
+}
+
+void Load_Settings() {
+	//clog.rdbuf(ofs.rdbuf()); //Redirecting the clog buffer stream, to file
+
+	string path = "../settings.txt";
+	ifstream fin;                          // Declaring an input stream object
+	fin.open(path);                        // Open the file //path.c_str()
+	if(fin.is_open())                      // If it opened successfully
+	{
+		fin >> NORM_RADIUS >> SPIN_RADIUS >> RANSAC_ITR
+		 		>> INLIER_TRSH >> SCENE_PATH >> MODEL_PATH >> METHOD;  // Read the values and
+		 		// store them in these variables
+		fin.close();
+	}
+		cout << "Done!\n";
+		cout << "<---------------[SETTINGS]---------------->\n"; //report settings used to console
+		cout << asctime(curtime); // "\n"
+		cout << "Norm Radius:    " << NORM_RADIUS << '\n';
+		cout << "Spin Radius:    " << SPIN_RADIUS << '\n';
+		cout << "Feature Method: "<< METHOD << "\n";
+		cout << "Scene:      " << SCENE_PATH << "\n";
+		cout << "Model:      " << MODEL_PATH << "\n";
+		cout << "Ransac itr:     "<< RANSAC_ITR << "\n";
+		cout << "Inlier +/-:     "<< INLIER_TRSH << "\n\n";
+		cout.flush();
+
+		// Send similar info to log file
+		clog << "<---------- " << asctime(curtime);
+		clog << "Feature Method: "<< METHOD << "\n";
+		clog << "Norm Radius: " << NORM_RADIUS << '\n';
+		clog << "Spin Radius: " << SPIN_RADIUS << '\n';
+		clog << "Scene: " << SCENE_PATH << "\n";
+		clog << "Model: " << MODEL_PATH << "\n \n";
+		clog.flush();
 
 }
 

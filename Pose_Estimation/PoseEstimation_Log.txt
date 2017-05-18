@@ -1,0 +1,415 @@
+<---------- Thu May 18 20:31:54 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 20:36:01 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 20:42:26 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 20:52:46 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 21:03:20 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 21:04:47 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 21:07:27 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+<---------- Thu May 18 21:08:46 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+<---------- Thu May 18 21:11:26 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+<---------- Thu May 18 21:11:41 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 21:11:46 2017
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 21:14:58 2017
+Norm Radius: 0.375
+Feature Method: SPINIMAGES
+
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 21:25:16 2017
+Norm Radius: 0.375
+Feature Method: SPINIMAGES
+
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 21:26:57 2017
+Norm Radius: 0.375
+Feature Method: SPINIMAGES
+
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+Found 971matches!<---------- Thu May 18 21:27:34 2017
+Norm Radius: 0.375
+Feature Method: SPINIMAGES
+
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+Found 971matches!<---------- Thu May 18 21:31:23 2017
+Feature Method: SPINIMAGES
+
+Norm Radius: 0.375
+Spin Radius: 0.3752570Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+SPINIMAGESFound 971 matches!<---------- Thu May 18 21:33:31 2017
+Feature Method: SPINIMAGES
+
+Norm Radius: 0.375
+Spin Radius: 0.3752570Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+SPINIMAGESFound 971 matches!<---------- Thu May 18 21:53:26 2017
+Feature Method: SPINIMAGES
+
+Norm Radius: 0.375
+Spin Radius: 0.3752570Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+SPINIMAGES Found 971 matches!After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	0.0002 and 2000 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 720 inliers.
+	 Score: 0.36 inliers pr. threshold.
+
+<---------- Thu May 18 21:54:37 2017
+Feature Method: SPINIMAGES
+
+Norm Radius: 0.375
+Spin Radius: 0.3752570Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 21:55:23 2017
+Feature Method: SPINIMAGES
+
+Norm Radius: 0.375
+Spin Radius: 0.3752570Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+SPINIMAGES Found 971 matches!After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	0.00013 and 2000 ransac iterations 
+After 0Ransac iterarions:
+	 Best pose found has 0 inliers.
+	 Score: 0 inliers pr. threshold.
+
+<---------- Thu May 18 22:05:38 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+SPINIMAGES Found 971 matches!
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	0.00013 and 2000 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	0.00016 and 2000 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 22:07:58 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+SPINIMAGES Found 971 matches!
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	0.0002 and 2500 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	0.000135 and 2500 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 22:09:16 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+SPINIMAGES Found 971 matches!
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	0.000115 and 2000 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	5e-05 and 1500 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	2.5e-06 and 1500 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 22:15:16 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+SPINIMAGES Found 971 matches!
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	0.00012 and 2000 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	1.2e-09 and 2000 ransac iterations 
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 22:26:34 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 22:29:04 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+<---------- Thu May 18 22:30:42 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 
+SPINIMAGES Found 971 matches!
+After 270Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	1.4e-06 and 2000 ransac iterations 
+After 1185Ransac iterarions:
+	 Best pose found has 42 inliers.
+	 Score: 3 inliers pr. threshold.
+
+<---------- Thu May 18 22:54:09 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time:6181970 
+SPINIMAGES Found 971 matches!
+After 270 Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 22:55:01 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time:5325631 
+SPINIMAGES Found 971 matches!
+After 270 Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 22:55:18 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time:2997205 
+SPINIMAGES Found 971 matches!
+After 270 Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 22:56:45 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time:41 
+SPINIMAGES Found 971 matches!
+After 270 Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 22:58:50 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time:3 
+SPINIMAGES Found 971 matches!
+After 270 Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 23:04:37 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 3552.39 miliseconds 
+SPINIMAGES Found 971 matches!
+After 270 Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 23:07:01 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 2935.9 miliseconds 
+SPINIMAGES Found 971 matches!
+After 270 Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 23:08:14 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 2930.91 miliseconds 
+SPINIMAGES Found 971 matches!
+After 270 Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
+<---------- Thu May 18 23:09:01 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/alex2.7kScaled.pcd
+Model: ../pointclouds/jenga1K.pcd
+ 
+Normals, extraction, and matching done in time: 3072.65 miliseconds 
+SPINIMAGES Found 971 matches!
+After 270 Ransac iterarions:
+	 Best pose found has 665 inliers.
+	 Score: 0.458621 inliers pr. threshold.
+
