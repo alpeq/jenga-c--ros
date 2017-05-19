@@ -42,6 +42,7 @@ pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene, pcl::Correspondences corr, int ransacItr = -1, int inlierTrsh = -1);
 void DownSampler(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_out);
 void Load_Settings(); //function definition placeholder
+float user_input();
 
 //Compute normals function
 pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float normRadius) {
@@ -167,9 +168,12 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 	string input=("1");
 	//int NEW_RANSAC_ITR=0;
 	cout << "Input new Ransac Inlier threshold (float), or Press [0] to exit\n";
-	getline(cin, input);
+
+	//getline(cin, input);
+
 	float NEW_INLIER_TRSH =1.0;
-	NEW_INLIER_TRSH = stof(input.c_str());
+	NEW_INLIER_TRSH = user_input();
+	//NEW_INLIER_TRSH = stof(input.c_str());
 	if (NEW_INLIER_TRSH == 0.0)
 	{
 	  cout << "exiting...";
@@ -179,8 +183,8 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 	}
 
 	cout <<  "How many Ransac iterations? (int) \n";
-			getline(cin, input);
-			int NEW_RANSAC_ITR= atoi(input.c_str());
+			//getline(cin, input);
+			float NEW_RANSAC_ITR= user_input();
 	clog << "Reusing Spin Images with Inlier threshold of: \n\t" << NEW_INLIER_TRSH << " and " <<NEW_RANSAC_ITR << " ransac iterations \n";
 	cout.flush();
 	clog.flush();
@@ -237,6 +241,20 @@ void Load_Settings() {
 		clog << "Model: " << MODEL_PATH << "\n \n";
 		clog.flush();
 
+}
+//This function does not work as intended now, but does not harm either, we leave it for future improvement
+
+float user_input() {
+	float user_in;
+	string str;
+	getline(cin, str);
+	try {
+		user_in = stof(str.c_str());
+	}
+	catch (string user_in) {
+		return user_input();
+	}
+	return user_in;
 }
 
 #endif
