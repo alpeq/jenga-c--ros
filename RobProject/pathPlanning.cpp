@@ -129,6 +129,7 @@ Q inverseKinematics(const Device::Ptr device, const SerialDevice::Ptr sdevice, c
         return solutions[0];
 }
 
+
 rw::trajectory::QPath linearInterpolatedPath(const rw::math::Q& start, const rw::math::Q& end,
                                                const double total_duration = 10.0, const double duration_step = 1.0)
   {
