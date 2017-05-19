@@ -2,9 +2,10 @@
 0.375					
 500.0
 0.000145
-../pointclouds/alex2.7kScaled.pcd
-../pointclouds/jenga1K.pcd
+../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+../pointclouds/7k_abe_11x.pcd
 SPINIMAGES
+0.0085
 
 
 [Above setting are in following order:]
@@ -18,5 +19,6 @@ Inlier threshold // 0.00000155 has given the best results so far.
 Scene path
 model path
 Feature extraction method (in capitals)
+leafsize of the downsampler (density in points pr volume)
 
 WHere is bin size?

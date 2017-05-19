@@ -598,3 +598,147 @@ After 270 Ransac iterarions:
 	 Best pose found has 720 inliers.
 	 Score: 0.36 inliers pr. threshold.
 
+<---------- Fri May 19 12:15:39 2017
+Feature Method: ../pointclouds/7k_abe_11x.pcd
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_Point
+Model: Clouds/filteredfig_middle_side.pcd
+ 
+Error: Couldn't read file.
+<---------- Fri May 19 12:15:59 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_PointClouds/filteredfig_middle_side.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+Error: Couldn't read file.
+<---------- Fri May 19 12:16:31 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_PointClouds/filteredfig_middle_side.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+<---------- Fri May 19 12:17:51 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+<---------- Fri May 19 12:19:20 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+<---------- Fri May 19 12:21:32 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+Normals, extraction, and matching done in time: 25382.5 miliseconds 
+SPINIMAGES Found 7006 matches!
+After 249 Ransac iterarions:
+	 Best pose found has 4743 inliers.
+	 Score: 3.27103 inliers pr. threshold.
+
+Reusing Spin Images with Inlier threshold of: 
+	0.00013 and 1000 ransac iterations 
+After 249 Ransac iterarions:
+	 Best pose found has 4558 inliers.
+	 Score: 3.50615 inliers pr. threshold.
+
+<---------- Fri May 19 12:28:38 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+<---------- Fri May 19 12:39:33 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+<---------- Fri May 19 12:42:09 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+Normals, extraction, and matching done in time: 8240.36 miliseconds 
+SPINIMAGES Found 7006 matches!
+After 36 Ransac iterarions:
+	 Best pose found has 4462 inliers.
+	 Score: 3.07724 inliers pr. threshold.
+
+<---------- Fri May 19 12:53:41 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene: ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model: ../pointclouds/7k_abe_11x.pcd
+ 
+Normals, extraction, and matching done in time: 134.371 miliseconds 
+SPINIMAGES Found 343 matches!
+After 276 Ransac iterarions:
+	 Best pose found has 206 inliers.
+	 Score: 0.142069 inliers pr. threshold.
+
+<---------- Fri May 19 13:01:01 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene:       ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model:       ../pointclouds/7k_abe_11x.pcd
+ 
+Leafsize:    0.0025
+
+Normals, extraction, and matching done in time: 5960.96 miliseconds 
+SPINIMAGES Found 4322 matches!
+After 354 Ransac iterarions:
+	 Best pose found has 2410 inliers.
+	 Score: 1.66207 inliers pr. threshold.
+
+<---------- Fri May 19 13:02:25 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene:       ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model:       ../pointclouds/7k_abe_11x.pcd
+ 
+Leafsize:    0.01
+
+<---------- Fri May 19 13:03:05 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene:       ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model:       ../pointclouds/7k_abe_11x.pcd
+ 
+Leafsize:    0.005
+
+<---------- Fri May 19 13:03:39 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene:       ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model:       ../pointclouds/7k_abe_11x.pcd
+ 
+Leafsize:    0.0085
+
+Normals, extraction, and matching done in time: 193.915 miliseconds 
+SPINIMAGES Found 456 matches!
+After 313 Ransac iterarions:
+	 Best pose found has 280 inliers.
+	 Score: 0.193103 inliers pr. threshold.
+

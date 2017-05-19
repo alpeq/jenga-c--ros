@@ -6,7 +6,9 @@ CMakeFiles/Pose_Estimation.dir/main.cpp.o
  /home/asbiorn/roviigit/jenga-c--ros/Pose_Estimation/ICP.h
  /home/asbiorn/roviigit/jenga-c--ros/Pose_Estimation/SHOT.h
  /home/asbiorn/roviigit/jenga-c--ros/Pose_Estimation/SpinImages.h
+ /home/asbiorn/roviigit/jenga-c--ros/Pose_Estimation/USC.h
  /home/asbiorn/roviigit/jenga-c--ros/Pose_Estimation/common.h
+ /home/asbiorn/roviigit/jenga-c--ros/Pose_Estimation/filter.h
  /home/asbiorn/roviigit/jenga-c--ros/Pose_Estimation/main.cpp
  /usr/include/eigen3/Eigen/Cholesky
  /usr/include/eigen3/Eigen/Core
@@ -233,12 +235,16 @@ CMakeFiles/Pose_Estimation.dir/main.cpp.o
  /usr/include/pcl-1.7/pcl/TextureMesh.h
  /usr/include/pcl-1.7/pcl/Vertices.h
  /usr/include/pcl-1.7/pcl/cloud_iterator.h
+ /usr/include/pcl-1.7/pcl/common/angles.h
  /usr/include/pcl-1.7/pcl/common/centroid.h
  /usr/include/pcl-1.7/pcl/common/common.h
  /usr/include/pcl-1.7/pcl/common/concatenate.h
  /usr/include/pcl-1.7/pcl/common/copy_point.h
+ /usr/include/pcl-1.7/pcl/common/distances.h
  /usr/include/pcl-1.7/pcl/common/eigen.h
+ /usr/include/pcl-1.7/pcl/common/geometry.h
  /usr/include/pcl-1.7/pcl/common/impl/accumulators.hpp
+ /usr/include/pcl-1.7/pcl/common/impl/angles.hpp
  /usr/include/pcl-1.7/pcl/common/impl/centroid.hpp
  /usr/include/pcl-1.7/pcl/common/impl/common.hpp
  /usr/include/pcl-1.7/pcl/common/impl/copy_point.hpp
@@ -254,6 +260,7 @@ CMakeFiles/Pose_Estimation.dir/main.cpp.o
  /usr/include/pcl-1.7/pcl/common/random.h
  /usr/include/pcl-1.7/pcl/common/time.h
  /usr/include/pcl-1.7/pcl/common/transforms.h
+ /usr/include/pcl-1.7/pcl/common/utils.h
  /usr/include/pcl-1.7/pcl/console/print.h
  /usr/include/pcl-1.7/pcl/conversions.h
  /usr/include/pcl-1.7/pcl/correspondence.h
@@ -266,15 +273,21 @@ CMakeFiles/Pose_Estimation.dir/main.cpp.o
  /usr/include/pcl-1.7/pcl/features/impl/shot.hpp
  /usr/include/pcl-1.7/pcl/features/impl/shot_lrf.hpp
  /usr/include/pcl-1.7/pcl/features/impl/spin_image.hpp
+ /usr/include/pcl-1.7/pcl/features/impl/usc.hpp
  /usr/include/pcl-1.7/pcl/features/normal_3d.h
  /usr/include/pcl-1.7/pcl/features/pfh_tools.h
  /usr/include/pcl-1.7/pcl/features/shot.h
  /usr/include/pcl-1.7/pcl/features/shot_lrf.h
  /usr/include/pcl-1.7/pcl/features/spin_image.h
+ /usr/include/pcl-1.7/pcl/features/usc.h
  /usr/include/pcl-1.7/pcl/filters/boost.h
  /usr/include/pcl-1.7/pcl/filters/filter.h
+ /usr/include/pcl-1.7/pcl/filters/filter_indices.h
  /usr/include/pcl-1.7/pcl/filters/impl/filter.hpp
+ /usr/include/pcl-1.7/pcl/filters/impl/filter_indices.hpp
+ /usr/include/pcl-1.7/pcl/filters/impl/passthrough.hpp
  /usr/include/pcl-1.7/pcl/filters/impl/voxel_grid.hpp
+ /usr/include/pcl-1.7/pcl/filters/passthrough.h
  /usr/include/pcl-1.7/pcl/filters/voxel_grid.h
  /usr/include/pcl-1.7/pcl/for_each_type.h
  /usr/include/pcl-1.7/pcl/geometry/planar_polygon.h
@@ -332,13 +345,54 @@ CMakeFiles/Pose_Estimation.dir/main.cpp.o
  /usr/include/pcl-1.7/pcl/registration/warp_point_rigid.h
  /usr/include/pcl-1.7/pcl/sample_consensus/boost.h
  /usr/include/pcl-1.7/pcl/sample_consensus/eigen.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/lmeds.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/mlesac.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/msac.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/prosac.hpp
  /usr/include/pcl-1.7/pcl/sample_consensus/impl/ransac.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/rmsac.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/rransac.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_circle.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_circle3d.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_cone.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_cylinder.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_line.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_normal_parallel_plane.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_normal_plane.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_normal_sphere.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_parallel_line.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_parallel_plane.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_perpendicular_plane.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_plane.hpp
  /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_registration.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_sphere.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/impl/sac_model_stick.hpp
+ /usr/include/pcl-1.7/pcl/sample_consensus/lmeds.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/method_types.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/mlesac.h
  /usr/include/pcl-1.7/pcl/sample_consensus/model_types.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/msac.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/prosac.h
  /usr/include/pcl-1.7/pcl/sample_consensus/ransac.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/rmsac.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/rransac.h
  /usr/include/pcl-1.7/pcl/sample_consensus/sac.h
  /usr/include/pcl-1.7/pcl/sample_consensus/sac_model.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_circle.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_circle3d.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_cone.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_cylinder.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_line.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_normal_parallel_plane.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_normal_plane.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_normal_sphere.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_parallel_line.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_parallel_plane.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_perpendicular_plane.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_plane.h
  /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_registration.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_sphere.h
+ /usr/include/pcl-1.7/pcl/sample_consensus/sac_model_stick.h
  /usr/include/pcl-1.7/pcl/search/impl/kdtree.hpp
  /usr/include/pcl-1.7/pcl/search/impl/organized.hpp
  /usr/include/pcl-1.7/pcl/search/impl/search.hpp
@@ -347,6 +401,8 @@ CMakeFiles/Pose_Estimation.dir/main.cpp.o
  /usr/include/pcl-1.7/pcl/search/organized.h
  /usr/include/pcl-1.7/pcl/search/pcl_search.h
  /usr/include/pcl-1.7/pcl/search/search.h
+ /usr/include/pcl-1.7/pcl/segmentation/impl/sac_segmentation.hpp
+ /usr/include/pcl-1.7/pcl/segmentation/sac_segmentation.h
  /usr/include/pcl-1.7/pcl/visualization/area_picking_event.h
  /usr/include/pcl-1.7/pcl/visualization/boost.h
  /usr/include/pcl-1.7/pcl/visualization/cloud_viewer.h

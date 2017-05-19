@@ -8,9 +8,9 @@
 #include "SpinImages.h"
 #include "FPFH.h"
 #include "SHOT.h"
-//#include "USC.h"
+#include "USC.h"
 #include "ICP.h"
-//#include "filter.h"
+#include "filter.h"
 #include "common.h"
 
 using namespace std::chrono;
@@ -35,8 +35,10 @@ clog.rdbuf(ofs.rdbuf()); //Redirecting the clog buffer stream, to file
         clog << "Error: Couldn't read file." << '\n';
         return -1;
     }
-
-
+FilterBackground(scene,scene);
+FilterTable(scene,scene);
+DownSampler(scene,scene);
+DownSampler(model,model);
 	//Display initial state
     pcl::visualization::PCLVisualizer init_view("Initial view");
     init_view.addPointCloud<pcl::PointXYZ>(scene, "Scene");

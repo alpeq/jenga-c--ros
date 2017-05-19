@@ -35,7 +35,7 @@ float NORM_RADIUS = 0.0;
 float SPIN_RADIUS = 0.0;
 float RANSAC_ITR = 0.0;
 float INLIER_TRSH = 0.0;
-
+float LEAFSIZE = 0.0;
 
 /***** This file contains the following functions *****/
 pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float normRadius = -1);
@@ -202,7 +202,7 @@ void DownSampler(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, pcl::PointCloud<p
   //Reduce the number of points in the cloud to increase the computational speed of the following algorithms
   pcl::VoxelGrid<pcl::PointXYZ> downSampler;            //Create a downsampler object
   downSampler.setInputCloud (cloud_in);
-  downSampler.setLeafSize (0.19f, 0.19f, 0.19f);
+  downSampler.setLeafSize (LEAFSIZE,LEAFSIZE ,LEAFSIZE );
   downSampler.filter(*cloud_out);
 
 }
@@ -216,7 +216,7 @@ void Load_Settings() {
 	if(fin.is_open())                      // If it opened successfully
 	{
 		fin >> NORM_RADIUS >> SPIN_RADIUS >> RANSAC_ITR
-		 		>> INLIER_TRSH >> SCENE_PATH >> MODEL_PATH >> METHOD;  // Read the values and
+		 		>> INLIER_TRSH >> SCENE_PATH >> MODEL_PATH >> METHOD >> LEAFSIZE;  // Read the values and
 		 		// store them in these variables
 		fin.close();
 	}
@@ -229,7 +229,8 @@ void Load_Settings() {
 		cout << "Scene:      " << SCENE_PATH << "\n";
 		cout << "Model:      " << MODEL_PATH << "\n";
 		cout << "Ransac itr:     "<< RANSAC_ITR << "\n";
-		cout << "Inlier +/-:     "<< INLIER_TRSH << "\n\n";
+		cout << "Inlier +/-:     "<< INLIER_TRSH << "\n";
+		cout << "Leafsize:       "<< LEAFSIZE << "\n\n";
 		cout.flush();
 
 		// Send similar info to log file
@@ -237,8 +238,9 @@ void Load_Settings() {
 		clog << "Feature Method: "<< METHOD << "\n";
 		clog << "Norm Radius: " << NORM_RADIUS << '\n';
 		clog << "Spin Radius: " << SPIN_RADIUS << '\n';
-		clog << "Scene: " << SCENE_PATH << "\n";
-		clog << "Model: " << MODEL_PATH << "\n \n";
+		clog << "Scene:       " << SCENE_PATH << "\n";
+		clog << "Model:       " << MODEL_PATH << "\n \n";
+		clog << "Leafsize:    "<< LEAFSIZE << "\n\n";
 		clog.flush();
 
 }
