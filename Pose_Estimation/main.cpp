@@ -9,7 +9,7 @@
 #include "SpinImages.h"
 #include "FPFH.h"
 #include "SHOT.h"
-//#include "USC.h"
+#include "USC.h"
 #include "ICP.h"
 #include "filter.h"
 #include "common.h"

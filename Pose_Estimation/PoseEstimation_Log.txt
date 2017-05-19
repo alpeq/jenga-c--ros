@@ -1454,3 +1454,12 @@ SPINIMAGES Found 2407 matches!
 After 473 Ransac iterarions:
 	 Best pose found has 1671 inliers.
 	Score: 3292.61 (inliers / threshold * C_downsampling) 
+<---------- Sat May 20 01:05:35 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene:       
+Model:       ../pointclouds/ABE.pcd
+ 
+Leafsize:    0.0035
+
