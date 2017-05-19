@@ -11,7 +11,7 @@
 
 #define FILTER_AXIS     "z"
 #define FILTER_MIN      0
-#define FILTER_MAX      1.0
+#define FILTER_MAX      1.1
 #define INLIER_TRESH    0.01
 
 /***** This file contains the following functions *****/

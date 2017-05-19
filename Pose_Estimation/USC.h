@@ -10,15 +10,15 @@
 
 /***** This file contains the following functions *****/
 Eigen::Matrix4f USC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene);
-pcl::PointCloud<pcl::UniqueShapeContext1960> ExtractUSC(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float USCRadius = -1);
-void nearest_feature(const pcl::UniqueShapeContext1960 &query, const pcl::PointCloud<pcl::UniqueShapeContext1960> &target, int &idx, float &distsq);
-inline float dist_sq(const pcl::UniqueShapeContext1960 &query, const pcl::UniqueShapeContext1960 &target);
+pcl::PointCloud<pcl::ShapeContext1980> ExtractUSC(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float USCRadius = -1);
+void nearest_feature(const pcl::ShapeContext1980 &query, const pcl::PointCloud<pcl::ShapeContext1980> &target, int &idx, float &distsq);
+inline float dist_sq(const pcl::ShapeContext1980 &query, const pcl::ShapeContext1980 &target);
 
 
 Eigen::Matrix4f USC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene) {
 	//Create the histograms to contain the SHOT
-	pcl::PointCloud<pcl::UniqueShapeContext1960>::Ptr modelUSC(new pcl::PointCloud<pcl::UniqueShapeContext1960>());	//Create a cloud to save results
-	pcl::PointCloud<pcl::UniqueShapeContext1960>::Ptr sceneUSC(new pcl::PointCloud<pcl::UniqueShapeContext1960>());	//Create a cloud to save results
+	pcl::PointCloud<pcl::ShapeContext1980>::Ptr modelUSC(new pcl::PointCloud<pcl::ShapeContext1980>());	//Create a cloud to save results
+	pcl::PointCloud<pcl::ShapeContext1980>::Ptr sceneUSC(new pcl::PointCloud<pcl::ShapeContext1980>());	//Create a cloud to save results
 
 	//Extract the SHOT
 	*modelUSC = ExtractUSC(model);
@@ -39,16 +39,16 @@ Eigen::Matrix4f USC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<p
 }
 
 
-pcl::PointCloud<pcl::UniqueShapeContext1960> ExtractUSC(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float USCRadius) {
+pcl::PointCloud<pcl::ShapeContext1980> ExtractUSC(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float USCRadius) {
 	//If no FPFP radius is specified, use the standard value in the top of the document
 	if (USCRadius == -1)
 		USCRadius = USC_RADIUS;
 
 
 	//Create USC estimator
-	pcl::UniqueShapeContext<pcl::PointXYZ, pcl::UniqueShapeContext1960, pcl::ReferenceFrame> usc_est;
+	pcl::UniqueShapeContext<pcl::PointXYZ, pcl::ShapeContext1980, pcl::ReferenceFrame> usc_est;
 
-        pcl::PointCloud<pcl::UniqueShapeContext1960>::Ptr descriptors(new pcl::PointCloud<pcl::UniqueShapeContext1960>());
+        pcl::PointCloud<pcl::ShapeContext1980>::Ptr descriptors(new pcl::PointCloud<pcl::ShapeContext1980>());
 	//Set the attributes
         usc_est.setInputCloud(cloud);
         usc_est.setRadiusSearch(USCRadius);
@@ -63,9 +63,9 @@ pcl::PointCloud<pcl::UniqueShapeContext1960> ExtractUSC(pcl::PointCloud<pcl::Poi
 }
 
 
-inline float dist_sq(const pcl::UniqueShapeContext1960 &query, const pcl::UniqueShapeContext1960 &target) {
+inline float dist_sq(const pcl::ShapeContext1980 &query, const pcl::ShapeContext1980 &target) {
     float result = 0.0;
-    for(int i = 0; i < pcl::UniqueShapeContext1960::descriptorSize(); ++i) {
+    for(int i = 0; i < pcl::ShapeContext1980::descriptorSize(); ++i) {
         const float diff = reinterpret_cast<const float*>(&query)[i] - reinterpret_cast<const float*>(&target)[i];
         result += diff * diff;
     }
@@ -74,7 +74,7 @@ inline float dist_sq(const pcl::UniqueShapeContext1960 &query, const pcl::Unique
 }
 
 
-void nearest_feature(const pcl::UniqueShapeContext1960 &query, const pcl::PointCloud<pcl::UniqueShapeContext1960> &target, int &idx, float &distsq) {
+void nearest_feature(const pcl::ShapeContext1980 &query, const pcl::PointCloud<pcl::ShapeContext1980> &target, int &idx, float &distsq) {
     idx = 0;
     distsq = dist_sq(query, target[0]);
     for(size_t i = 1; i < target.size(); ++i) {
