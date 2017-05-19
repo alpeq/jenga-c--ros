@@ -742,3 +742,18 @@ After 313 Ransac iterarions:
 	 Best pose found has 280 inliers.
 	 Score: 0.193103 inliers pr. threshold.
 
+<---------- Fri May 19 13:52:43 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.375
+Spin Radius: 0.375
+Scene:       ../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
+Model:       ../pointclouds/7k_abe_11x.pcd
+ 
+Leafsize:    0.0085
+
+Normals, extraction, and matching done in time: 194.014 miliseconds 
+SPINIMAGES Found 456 matches!
+After 313 Ransac iterarions:
+	 Best pose found has 280 inliers.
+	 Score: 0.193103 inliers pr. threshold.
+
