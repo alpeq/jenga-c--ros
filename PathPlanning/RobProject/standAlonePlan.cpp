@@ -123,7 +123,7 @@ Q inverseKinematics(const Device::Ptr device, const SerialDevice::Ptr sdevice, c
 
 
 int main() {
-    const string wcFile = "/home/ali/WorkSpace/Rovi/WorkCell_scenes/WorkStation_Easy/WC1_Scene.wc.xml";
+    const string wcFile = "/home/ali/WorkSpace/Rovi/WorkCell_scenes/WorkStation_Medium/WC1_Scene.wc.xml";
     const string deviceName = "UR1";
     cout << "Trying to use workcell " << wcFile << " and device " << deviceName << endl;
 
@@ -148,62 +148,64 @@ int main() {
     //------------------------------------------------------------------------------------------
     //        //Points for Easy WorkCell
 
-          /** Points of our Planning **/
-          Vector3D<> sp1(-0.18, -0.06, 0.82); RPY<> sr1(-1.3, -1.5, 1.5);
-          Vector3D<> ep1(0.0, -0.82, 0.28); RPY<> er1(-1.4, 0.0, -3.0);
-          // Transformation Matrix
-          Transform3D<> F1(sp1, sr1.toRotation3D()); Transform3D<> T1(ep1, er1.toRotation3D());
+//          /** Points of our Planning **/
+//          Vector3D<> sp1(-0.18, -0.06, 0.82); RPY<> sr1(-1.3, -1.5, 1.5);
+//          Vector3D<> ep1(0.0, -0.82, 0.28); RPY<> er1(-1.4, 0.0, -3.0);
+//          // Transformation Matrix
+//          Transform3D<> F1(sp1, sr1.toRotation3D()); Transform3D<> T1(ep1, er1.toRotation3D());
 
-          Vector3D<> sp2(-0.18, -0.06, 0.82); RPY<> sr2(-1.3, -1.5, 1.5);
-          Vector3D<> ep2(0.18, -0.82, 0.28); RPY<> er2(-1.4, 0.0, -3.0);
-          // Transformation Matrix
-          Transform3D<> F2(sp2, sr2.toRotation3D()); Transform3D<> T2(ep2, er2.toRotation3D());
+//          Vector3D<> sp2(-0.18, -0.06, 0.82); RPY<> sr2(-1.3, -1.5, 1.5);
+//          Vector3D<> ep2(0.18, -0.82, 0.28); RPY<> er2(-1.4, 0.0, -3.0);
+//          // Transformation Matrix
+//          Transform3D<> F2(sp2, sr2.toRotation3D()); Transform3D<> T2(ep2, er2.toRotation3D());
 
-          Vector3D<> sp3(-0.18, -0.06, 0.82); RPY<> sr3(-1.3, -1.5, 1.5);
-          Vector3D<> ep3(0.18, -0.82, 0.28); RPY<> er3(-1.4, 0.0, -3.0);
-          // Transformation Matrix
-          Transform3D<> F3(sp3, sr3.toRotation3D()); Transform3D<> T3(ep3, er3.toRotation3D());
+//          Vector3D<> sp3(-0.18, -0.06, 0.82); RPY<> sr3(-1.3, -1.5, 1.5);
+//          Vector3D<> ep3(0.18, -0.82, 0.28); RPY<> er3(-1.4, 0.0, -3.0);
+//          // Transformation Matrix
+//          Transform3D<> F3(sp3, sr3.toRotation3D()); Transform3D<> T3(ep3, er3.toRotation3D());
 
-          Vector3D<> sp4(-0.18, -0.06, 0.82); RPY<> sr4(-1.3, -1.5, 1.5);
-          Vector3D<> ep4(0.049, -0.92, 0.178); RPY<> er4(-1.3, -0.3, -3.1);
-          // Transformation Matrix
-          Transform3D<> F4(sp4, sr4.toRotation3D()); Transform3D<> T4(ep4, er4.toRotation3D());
+//          Vector3D<> sp4(-0.18, -0.06, 0.82); RPY<> sr4(-1.3, -1.5, 1.5);
+//          Vector3D<> ep4(0.049, -0.92, 0.178); RPY<> er4(-1.3, -0.3, -3.1);
+//          // Transformation Matrix
+//          Transform3D<> F4(sp4, sr4.toRotation3D()); Transform3D<> T4(ep4, er4.toRotation3D());
 
-          Vector3D<> sp5(-0.18, -0.06, 0.82); RPY<> sr5(-1.3, -1.5, 1.5);
-          Vector3D<> ep5(0.30, -0.80, 0.28); RPY<> er5(-0.9, 0.0, 2.5);
-          // Transformation Matrix
-          Transform3D<> F5(sp5, sr5.toRotation3D()); Transform3D<> T5(ep5, er5.toRotation3D());
-//      //Points for Medium WorkCell
-//      /** Points of our Planning **/
-//      //Vector3D<> sp1(0.47, -0.65, 0.28); RPY<> sr1(-0.7, 0.1, 2.8);
-//      Vector3D<> sp1(0.35, -0.65, 0.28); RPY<> sr1(-0.7, 0.1, 2.8);
-//      Vector3D<> ep1(-0.38, -0.69, 0.28); RPY<> er1(-0.5, 1.3, 1.2);
-//      // Transformation Matrix
-//      Transform3D<> F1(sp1, sr1.toRotation3D()); Transform3D<> T1(ep1, er1.toRotation3D());
+//          Vector3D<> sp5(-0.18, -0.06, 0.82); RPY<> sr5(-1.3, -1.5, 1.5);
+//          Vector3D<> ep5(0.30, -0.80, 0.28); RPY<> er5(-0.9, 0.0, 2.5);
+//          // Transformation Matrix
+//          Transform3D<> F5(sp5, sr5.toRotation3D()); Transform3D<> T5(ep5, er5.toRotation3D());
 
-//      Vector3D<> sp2(0.35, -0.65, 0.28); RPY<> sr2(-0.7, 0.1, 2.8);
-//      Vector3D<> ep2(-0.3, -0.74, 0.28); RPY<> er2(-0.4, 1.3, 1.2);
-//      // Transformation Matrix
-//      Transform3D<> F2(sp2, sr2.toRotation3D()); Transform3D<> T2(ep2, er2.toRotation3D());
 
-//      //Vector3D<> sp3(0.35, -0.75, 0.28); RPY<> sr3(-0.7, 0.1, 2.8);
-//      Vector3D<> sp3(0.35, -0.65, 0.28); RPY<> sr3(-0.7, 0.1, 2.8);
-//      Vector3D<> ep3(-0.45, -0.61, 0.34); RPY<> er3(1.6, 0.4, 3.0);
-//      // Transformation Matrix
-//      Transform3D<> F3(sp3, sr3.toRotation3D()); Transform3D<> T3(ep3, er3.toRotation3D());
+      //Points for Medium WorkCell
+      /** Points of our Planning **/
+      //Vector3D<> sp1(0.47, -0.65, 0.28); RPY<> sr1(-0.7, 0.1, 2.8);
+      Vector3D<> sp1(0.35, -0.65, 0.28); RPY<> sr1(-0.7, 0.1, 2.8);
+      Vector3D<> ep1(-0.38, -0.69, 0.28); RPY<> er1(-0.5, 1.3, 1.2);
+      // Transformation Matrix
+      Transform3D<> F1(sp1, sr1.toRotation3D()); Transform3D<> T1(ep1, er1.toRotation3D());
 
-//      //Vector3D<> sp4(0.35, -0.63, 0.28); RPY<> sr4(-0.7, 0.1, 2.8);
-//      Vector3D<> sp4(0.35, -0.65, 0.28); RPY<> sr4(-0.7, 0.1, 2.8);
-//      //Vector3D<> ep4(-0.47, -0.66, 0.47); RPY<> er4(-2.3, -1.4, -1.8);
-//      Vector3D<> ep4(-0.51, -0.45, 0.29); RPY<> er4(0.7, 0.5, 2.7);
-//      // Transformation Matrix
-//      Transform3D<> F4(sp4, sr4.toRotation3D()); Transform3D<> T4(ep4, er4.toRotation3D());
+      Vector3D<> sp2(0.35, -0.65, 0.28); RPY<> sr2(-0.7, 0.1, 2.8);
+      Vector3D<> ep2(-0.3, -0.74, 0.28); RPY<> er2(-0.4, 1.3, 1.2);
+      // Transformation Matrix
+      Transform3D<> F2(sp2, sr2.toRotation3D()); Transform3D<> T2(ep2, er2.toRotation3D());
 
-////        Vector3D<> sp5(0.42, -0.74, 0.28); RPY<> sr5(-0.6, 0.1, 2.8);
-//      Vector3D<> sp5(0.35, -0.65, 0.28); RPY<> sr5(-0.7, 0.1, 2.8);
-//      Vector3D<> ep5(-0.36, -0.61, 0.18); RPY<> er5(1.0, 0.4, 2.7);
-//      // Transformation Matrix
-//      Transform3D<> F5(sp5, sr5.toRotation3D()); Transform3D<> T5(ep5, er5.toRotation3D());
+      //Vector3D<> sp3(0.35, -0.75, 0.28); RPY<> sr3(-0.7, 0.1, 2.8);
+      Vector3D<> sp3(0.35, -0.65, 0.28); RPY<> sr3(-0.7, 0.1, 2.8);
+      Vector3D<> ep3(-0.45, -0.61, 0.34); RPY<> er3(1.6, 0.4, 3.0);
+      // Transformation Matrix
+      Transform3D<> F3(sp3, sr3.toRotation3D()); Transform3D<> T3(ep3, er3.toRotation3D());
+
+      //Vector3D<> sp4(0.35, -0.63, 0.28); RPY<> sr4(-0.7, 0.1, 2.8);
+      Vector3D<> sp4(0.35, -0.65, 0.28); RPY<> sr4(-0.7, 0.1, 2.8);
+      //Vector3D<> ep4(-0.47, -0.66, 0.47); RPY<> er4(-2.3, -1.4, -1.8);
+      Vector3D<> ep4(-0.51, -0.45, 0.29); RPY<> er4(0.7, 0.5, 2.7);
+      // Transformation Matrix
+      Transform3D<> F4(sp4, sr4.toRotation3D()); Transform3D<> T4(ep4, er4.toRotation3D());
+
+//        Vector3D<> sp5(0.42, -0.74, 0.28); RPY<> sr5(-0.6, 0.1, 2.8);
+      Vector3D<> sp5(0.35, -0.65, 0.28); RPY<> sr5(-0.7, 0.1, 2.8);
+      Vector3D<> ep5(-0.36, -0.61, 0.18); RPY<> er5(1.0, 0.4, 2.7);
+      // Transformation Matrix
+      Transform3D<> F5(sp5, sr5.toRotation3D()); Transform3D<> T5(ep5, er5.toRotation3D());
 
       //--------------------------------------------------------------------------------------------
 
@@ -221,8 +223,10 @@ int main() {
     QMetric::Ptr metric = MetricFactory::makeEuclidean<Q>();
     QConstraint::Ptr Qconstraint = QConstraint::make(&detector, device, state);
 
+    //double extend = 0.05;
     double extend = 0.05;
-//    QToQPlanner::Ptr planner = RRTPlanner::makeQToQPlanner(constraint, sampler, metric, extend, RRTPlanner::RRTConnect);
+
+    QToQPlanner::Ptr planner = RRTPlanner::makeQToQPlanner(constraint, sampler, metric, extend, RRTPlanner::RRTConnect);
 
 
     //Input Initial position Trasformation matrix
@@ -259,14 +263,15 @@ for (k=0;k<100;k++){
         if (OUT != 11)
             cout << "Planning from " << from << " to " << to << endl;
 
-        PRMPlanner* prm = new PRMPlanner(device.get(), state, &detector, extend); //input device as (rw::models::Device*)
+    //    PRMPlanner* prm = new PRMPlanner(device.get(), state, &detector, extend); //input device as (rw::models::Device*)
     //    PRMPlanner* prm = new PRMPlanner(Qconstraint, sampler, 0.1, device, state); //input device as (rw::models::Device*)
-        prm->setCollisionCheckingStrategy(PRMPlanner::LAZY);
-        prm->setNeighSearchStrategy(PRMPlanner::BRUTE_FORCE);
-        prm->setShortestPathSearchStrategy(PRMPlanner::A_STAR);
-        prm->buildRoadmap(10000);
+    //    prm->setCollisionCheckingStrategy(PRMPlanner::LAZY);
+    //    prm->setNeighSearchStrategy(PRMPlanner::BRUTE_FORCE);
+    //    prm->setShortestPathSearchStrategy(PRMPlanner::A_STAR);
+    //    prm->buildRoadmap(10000);
         //Call PRM planner
-        prm->query(from,to,path,MAXTIME);
+        //prm->query(from,to,path,MAXTIME);
+        planner->query(from,to,path,MAXTIME); //run planner
 
         //LinearInterpolate Path
         //path.size() == 2;
@@ -298,7 +303,7 @@ for (k=0;k<100;k++){
                 cout << t.getTime() << ";" << getTdistance(path,wc,device,state) << ";" << path.size() << endl;
 }
 
-        delete(prm);
+        //delete(prm);
         //delete(path);
         i++;
     }
