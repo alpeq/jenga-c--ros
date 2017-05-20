@@ -38,6 +38,25 @@ float RANSAC_ITR = 0.0;
 float INLIER_TRSH = 0.0;
 float LEAFSIZE = 0.0;
 
+int MAX_DATE=20;
+
+std::string get_date(void)
+{
+   time_t now;
+   char the_date[MAX_DATE];
+
+   the_date[0] = '\0';
+
+   now = time(NULL);
+
+   if (now != -1)
+   {
+      strftime(the_date, MAX_DATE, "%d_%m_%Y", gmtime(&now));
+   }
+
+   return std::string(the_date);
+}
+
 /***** This file contains the following functions *****/
 pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float normRadius = -1);
 Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene, pcl::Correspondences corr, int ransacItr = -1, int inlierTrsh = -1);
@@ -219,13 +238,10 @@ void Load_Settings() {
 
 	string file_paths = ReplaceStringInPlace(MODEL_PATH, ".pcd", ".ini");
 	ifstream fin2;
-	cout << file_paths << "\n";
 
 	fin2.open(file_paths);
 	if(fin2.is_open())
 	{
-		//bool end = false;
-		//getline(fin2, path);//read empty line (quickfix/patch)
 		while (true){
 			getline(fin2, path);
 			if (path.compare("end") == 0)
@@ -236,7 +252,6 @@ void Load_Settings() {
 					}
 			fin2.close();
 string BackToOriginal = ReplaceStringInPlace(MODEL_PATH, ".ini", ".pcd");
-cout << BackToOriginal;
 				}
 		else {
 			cerr << "Error opening .ini file" << '\n';
@@ -272,7 +287,9 @@ cout << BackToOriginal;
 		clog << "Norm Radius: " << NORM_RADIUS << '\n';
 		clog << "Spin Radius: " << SPIN_RADIUS << '\n';
 		clog << "Scene:       " << SCENE_PATH << "\n";
-		clog << "Model:       " << MODEL_PATH << "\n \n";
+		clog << "Model:       " << MODEL_PATH << "\n";
+		clog << "Ransac itr:     "<< RANSAC_ITR << "\n";
+		clog << "Inlier +/-:     "<< INLIER_TRSH << "\n";
 		clog << "Leafsize:    "<< LEAFSIZE << "\n\n";
 		clog.flush();
 

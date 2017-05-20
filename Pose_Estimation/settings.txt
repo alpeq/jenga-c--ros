@@ -1,10 +1,10 @@
-0.375
-0.375					
+0.15
+0.15					
 500.0
 0.000145
 ../pointclouds/ABE.pcd
 SPINIMAGES
-0.0035
+0.005
 ../pointclouds/Filtered_PointClouds/block_far_corner.pcd
 end
 
@@ -23,7 +23,7 @@ leafsize of the downsampler (density in points pr volume)
 
 WHere is bin size?
 
-
+list of files
 ../pointclouds/Filtered_PointClouds/block_middle_flat.pcd
 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
 ../pointclouds/Filtered_PointClouds/block_near_corner.pcd
@@ -41,3 +41,6 @@ WHere is bin size?
 ../pointclouds/Filtered_PointClouds/ball_middle.pcd
 ../pointclouds/Filtered_PointClouds/block_middle_corner.pcd
 
+findings
+norm og spin radis for ball skal være ca 0.15
+size of ball is 67.5mm dia

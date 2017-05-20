@@ -4,7 +4,7 @@
 #include <pcl/visualization/cloud_viewer.h>
 
 #include <chrono>
-
+#include <ctime>
 
 #include "SpinImages.h"
 #include "FPFH.h"
@@ -76,6 +76,7 @@ high_resolution_clock::time_point t2 = high_resolution_clock::now();
   //  Eigen::Matrix4f pose;
 	transformPointCloud(*model, *alignedModel, pose);
 
+  /*
 	//View result
 	pcl::visualization::PCLVisualizer preICP_viewer("preICP");
 	preICP_viewer.addPointCloud<pcl::PointXYZ>(alignedModel, "Model aligned");
@@ -83,20 +84,34 @@ high_resolution_clock::time_point t2 = high_resolution_clock::now();
 	preICP_viewer.spin();
 
 	//Run ICP and save the Transformation matrix into pose
-	pose = ICP(alignedModel, scene);
+pose = ICP(alignedModel, scene);
 
 	// Apply the pose found by ICP
 	transformPointCloud(*alignedModel, *alignedModel, pose);
-
+cout << alignedModel.size()
 	//View result
 	pcl::visualization::PCLVisualizer ICP_viewer("Final");
 	ICP_viewer.addPointCloud<pcl::PointXYZ>(alignedModel, "Model aligned");
 	ICP_viewer.addPointCloud<pcl::PointXYZ>(scene, "Scene");
 	ICP_viewer.spin();
+*/
 
 	//Save output
+
+
+clog << "Final Pose\n" <<pose << "\n";
+clog << "To view result, run: \n";
+clog << "pcl_viewer " << SCENE_PATH << " " << MODEL_PATH << endl;
+
+time_t result = time(nullptr);
+string taggger =asctime(std::localtime(&result));
+
     string renameing = ReplaceStringInPlace(SCENE_PATH, ".pcd", "");
-    string MODEL_AND_POSE= renameing+"_model_pose_RESULT.pcd";
+  //  string str2 = str.substr (-3,-)
+  string date= get_date();
+    string MODEL_AND_POSE= renameing+"_pose_RESULT.pcd";
+//    string MODEL_AND_POSE= renameing+"_"+taggger+"_pose_RESULT.pcd";
+
     pcl::io::savePCDFileASCII(MODEL_AND_POSE, *alignedModel);
 
 
