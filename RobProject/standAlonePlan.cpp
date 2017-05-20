@@ -31,6 +31,7 @@ using namespace rwlibs::proximitystrategies;
 
 #define MAXTIME 30.
 
+#define OUT 11
 
 /**
  * getPoint: Get 3D point given robot, frame configuration and Q state
@@ -96,13 +97,12 @@ Q inverseKinematics(const Device::Ptr device, const SerialDevice::Ptr sdevice, c
     urIK = new rw::invkin::ClosedFormIKSolverUR(sdevice, state);
     //urIK.setCheckJointLimits(true);
     vector<Q> solutions = urIK->solve(TD, state);
-    cout << solutions.size() << endl;
+    if (OUT != 11)
+        cout << solutions.size() << endl;
     if (solutions.size() == 0) {
         std::cout << "No solution found!"<< endl << endl << endl << endl << endl << endl << endl;
     }
-    else
-        cout << "SOLUTION RETURNED!!!!!!!" << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl;
-        return solutions[1];
+    return solutions[1];
 }
 
 // LinearInterpolatedPath Function Defined
@@ -123,7 +123,7 @@ Q inverseKinematics(const Device::Ptr device, const SerialDevice::Ptr sdevice, c
 
 
 int main() {
-    const string wcFile = "/home/ali/WorkSpace/Rovi/WorkCell_scenes/WorkStation_Medium/WC1_Scene.wc.xml";
+    const string wcFile = "/home/ali/WorkSpace/Rovi/WorkCell_scenes/WorkStation_Easy/WC1_Scene.wc.xml";
     const string deviceName = "UR1";
     cout << "Trying to use workcell " << wcFile << " and device " << deviceName << endl;
 
@@ -146,38 +146,64 @@ int main() {
     PlannerConstraint constraint = PlannerConstraint::make(&detector,device,state);
 
     //------------------------------------------------------------------------------------------
+    //        //Points for Easy WorkCell
 
-      //Points for Medium WorkCell
-      /** Points of our Planning **/
-      //Vector3D<> sp1(0.47, -0.65, 0.28); RPY<> sr1(-0.7, 0.1, 2.8);
-      Vector3D<> sp1(0.35, -0.65, 0.28); RPY<> sr1(-0.7, 0.1, 2.8);
-      Vector3D<> ep1(-0.38, -0.69, 0.28); RPY<> er1(-0.5, 1.3, 1.2);
-      // Transformation Matrix
-      Transform3D<> F1(sp1, sr1.toRotation3D()); Transform3D<> T1(ep1, er1.toRotation3D());
+          /** Points of our Planning **/
+          Vector3D<> sp1(-0.18, -0.06, 0.82); RPY<> sr1(-1.3, -1.5, 1.5);
+          Vector3D<> ep1(0.0, -0.82, 0.28); RPY<> er1(-1.4, 0.0, -3.0);
+          // Transformation Matrix
+          Transform3D<> F1(sp1, sr1.toRotation3D()); Transform3D<> T1(ep1, er1.toRotation3D());
 
-      Vector3D<> sp2(0.35, -0.65, 0.28); RPY<> sr2(-0.7, 0.1, 2.8);
-      Vector3D<> ep2(-0.3, -0.74, 0.28); RPY<> er2(-0.4, 1.3, 1.2);
-      // Transformation Matrix
-      Transform3D<> F2(sp2, sr2.toRotation3D()); Transform3D<> T2(ep2, er2.toRotation3D());
+          Vector3D<> sp2(-0.18, -0.06, 0.82); RPY<> sr2(-1.3, -1.5, 1.5);
+          Vector3D<> ep2(0.18, -0.82, 0.28); RPY<> er2(-1.4, 0.0, -3.0);
+          // Transformation Matrix
+          Transform3D<> F2(sp2, sr2.toRotation3D()); Transform3D<> T2(ep2, er2.toRotation3D());
 
-      //Vector3D<> sp3(0.35, -0.75, 0.28); RPY<> sr3(-0.7, 0.1, 2.8);
-      Vector3D<> sp3(0.35, -0.65, 0.28); RPY<> sr3(-0.7, 0.1, 2.8);
-      Vector3D<> ep3(-0.45, -0.61, 0.34); RPY<> er3(1.6, 0.4, 3.0);
-      // Transformation Matrix
-      Transform3D<> F3(sp3, sr3.toRotation3D()); Transform3D<> T3(ep3, er3.toRotation3D());
+          Vector3D<> sp3(-0.18, -0.06, 0.82); RPY<> sr3(-1.3, -1.5, 1.5);
+          Vector3D<> ep3(0.18, -0.82, 0.28); RPY<> er3(-1.4, 0.0, -3.0);
+          // Transformation Matrix
+          Transform3D<> F3(sp3, sr3.toRotation3D()); Transform3D<> T3(ep3, er3.toRotation3D());
 
-      //Vector3D<> sp4(0.35, -0.63, 0.28); RPY<> sr4(-0.7, 0.1, 2.8);
-      Vector3D<> sp4(0.35, -0.65, 0.28); RPY<> sr4(-0.7, 0.1, 2.8);
-      //Vector3D<> ep4(-0.47, -0.66, 0.47); RPY<> er4(-2.3, -1.4, -1.8);
-      Vector3D<> ep4(-0.51, -0.45, 0.29); RPY<> er4(0.7, 0.5, 2.7);
-      // Transformation Matrix
-      Transform3D<> F4(sp4, sr4.toRotation3D()); Transform3D<> T4(ep4, er4.toRotation3D());
+          Vector3D<> sp4(-0.18, -0.06, 0.82); RPY<> sr4(-1.3, -1.5, 1.5);
+          Vector3D<> ep4(0.049, -0.92, 0.178); RPY<> er4(-1.3, -0.3, -3.1);
+          // Transformation Matrix
+          Transform3D<> F4(sp4, sr4.toRotation3D()); Transform3D<> T4(ep4, er4.toRotation3D());
 
-//        Vector3D<> sp5(0.42, -0.74, 0.28); RPY<> sr5(-0.6, 0.1, 2.8);
-      Vector3D<> sp5(0.35, -0.65, 0.28); RPY<> sr5(-0.7, 0.1, 2.8);
-      Vector3D<> ep5(-0.36, -0.61, 0.18); RPY<> er5(1.0, 0.4, 2.7);
-      // Transformation Matrix
-      Transform3D<> F5(sp5, sr5.toRotation3D()); Transform3D<> T5(ep5, er5.toRotation3D());
+          Vector3D<> sp5(-0.18, -0.06, 0.82); RPY<> sr5(-1.3, -1.5, 1.5);
+          Vector3D<> ep5(0.30, -0.80, 0.28); RPY<> er5(-0.9, 0.0, 2.5);
+          // Transformation Matrix
+          Transform3D<> F5(sp5, sr5.toRotation3D()); Transform3D<> T5(ep5, er5.toRotation3D());
+//      //Points for Medium WorkCell
+//      /** Points of our Planning **/
+//      //Vector3D<> sp1(0.47, -0.65, 0.28); RPY<> sr1(-0.7, 0.1, 2.8);
+//      Vector3D<> sp1(0.35, -0.65, 0.28); RPY<> sr1(-0.7, 0.1, 2.8);
+//      Vector3D<> ep1(-0.38, -0.69, 0.28); RPY<> er1(-0.5, 1.3, 1.2);
+//      // Transformation Matrix
+//      Transform3D<> F1(sp1, sr1.toRotation3D()); Transform3D<> T1(ep1, er1.toRotation3D());
+
+//      Vector3D<> sp2(0.35, -0.65, 0.28); RPY<> sr2(-0.7, 0.1, 2.8);
+//      Vector3D<> ep2(-0.3, -0.74, 0.28); RPY<> er2(-0.4, 1.3, 1.2);
+//      // Transformation Matrix
+//      Transform3D<> F2(sp2, sr2.toRotation3D()); Transform3D<> T2(ep2, er2.toRotation3D());
+
+//      //Vector3D<> sp3(0.35, -0.75, 0.28); RPY<> sr3(-0.7, 0.1, 2.8);
+//      Vector3D<> sp3(0.35, -0.65, 0.28); RPY<> sr3(-0.7, 0.1, 2.8);
+//      Vector3D<> ep3(-0.45, -0.61, 0.34); RPY<> er3(1.6, 0.4, 3.0);
+//      // Transformation Matrix
+//      Transform3D<> F3(sp3, sr3.toRotation3D()); Transform3D<> T3(ep3, er3.toRotation3D());
+
+//      //Vector3D<> sp4(0.35, -0.63, 0.28); RPY<> sr4(-0.7, 0.1, 2.8);
+//      Vector3D<> sp4(0.35, -0.65, 0.28); RPY<> sr4(-0.7, 0.1, 2.8);
+//      //Vector3D<> ep4(-0.47, -0.66, 0.47); RPY<> er4(-2.3, -1.4, -1.8);
+//      Vector3D<> ep4(-0.51, -0.45, 0.29); RPY<> er4(0.7, 0.5, 2.7);
+//      // Transformation Matrix
+//      Transform3D<> F4(sp4, sr4.toRotation3D()); Transform3D<> T4(ep4, er4.toRotation3D());
+
+////        Vector3D<> sp5(0.42, -0.74, 0.28); RPY<> sr5(-0.6, 0.1, 2.8);
+//      Vector3D<> sp5(0.35, -0.65, 0.28); RPY<> sr5(-0.7, 0.1, 2.8);
+//      Vector3D<> ep5(-0.36, -0.61, 0.18); RPY<> er5(1.0, 0.4, 2.7);
+//      // Transformation Matrix
+//      Transform3D<> F5(sp5, sr5.toRotation3D()); Transform3D<> T5(ep5, er5.toRotation3D());
 
       //--------------------------------------------------------------------------------------------
 
@@ -230,10 +256,10 @@ for (k=0;k<100;k++){
             return 0;
         if (!checkCollisions(device, state, detector, to))
             return 0;
+        if (OUT != 11)
+            cout << "Planning from " << from << " to " << to << endl;
 
-        cout << "Planning from " << from << " to " << to << endl;
-
-        PRMPlanner* prm = new PRMPlanner(device.get(), state, &detector, 0.1); //input device as (rw::models::Device*)
+        PRMPlanner* prm = new PRMPlanner(device.get(), state, &detector, extend); //input device as (rw::models::Device*)
     //    PRMPlanner* prm = new PRMPlanner(Qconstraint, sampler, 0.1, device, state); //input device as (rw::models::Device*)
         prm->setCollisionCheckingStrategy(PRMPlanner::LAZY);
         prm->setNeighSearchStrategy(PRMPlanner::BRUTE_FORCE);
@@ -255,6 +281,7 @@ for (k=0;k<100;k++){
         //PathLengthOptimizer = rwlibs::pathoptimization::PathLengthOptimizer(constraint,metric);
         //path = PathLengthOptimizer.partialShortCut(path);
         t.pause();
+        if (OUT!=11){
         cout << "Path of length " << path.size() << " found in " << t.getTime() << " seconds." << endl;
         if (t.getTime() >= MAXTIME) {
             cout << "Notice: max time of " << MAXTIME << " seconds reached." << endl;
@@ -263,9 +290,13 @@ for (k=0;k<100;k++){
         for (QPath::iterator it = path.begin(); it < path.end(); it++) {
             cout << *it << endl;
         }
-
-        cout << t.getTime() << ";" << getTdistance(path,wc,device,state) << ";" << path.size() << endl;
-
+} else{
+        if (t.getTime() >= MAXTIME) {
+                cout << "30;" << "3;" << "5;"<< "-1" << endl;
+            }
+        else
+                cout << t.getTime() << ";" << getTdistance(path,wc,device,state) << ";" << path.size() << endl;
+}
 
         delete(prm);
         //delete(path);
