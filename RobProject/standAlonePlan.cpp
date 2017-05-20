@@ -31,6 +31,43 @@ using namespace rwlibs::proximitystrategies;
 
 #define MAXTIME 30.
 
+
+/**
+ * getPoint: Get 3D point given robot, frame configuration and Q state
+ **/
+Transform3D<> getPoint(WorkCell::Ptr wc,Device::Ptr device, const State &state, const Q &q) {
+    State testState;
+    testState = state;
+    device->setQ(q, testState);
+    return Kinematics::worldTframe(wc->findFrame("PG70"), testState);
+}
+
+
+/**
+ * Distance:
+ **/
+double distance(Transform3D<> pT1, Transform3D<> pT2) {
+
+    Vector3D<> p1 = pT1.P();
+    Vector3D<> p2 = pT2.P();
+    Vector3D<> d = Vector3D<>(dot(p2.x(),p2)-dot(p1.x(),p1),dot(p2.y(),p2)-dot(p1.y(),p1),dot(p2.z(),p2)-dot(p1.z(),p1));
+    return d.norm2();
+}
+
+double getTdistance(rw::trajectory::QPath path,WorkCell::Ptr wc,Device::Ptr device, const State &state) {
+
+    double total = 0;
+    for (QPath::iterator it = path.begin(); it < (path.end()-1); it++) {
+        Q first = *(it);
+        Q second =*(it+1) ;
+
+        total += distance(getPoint(wc,device, state, first) , getPoint(wc,device, state, second) );
+
+    }
+    return total;
+}
+
+
 //Collision CHeck Function defined
 bool checkCollisions(Device::Ptr device, const State &state, const CollisionDetector &detector, const Q &q) {
     State testState;
@@ -65,7 +102,7 @@ Q inverseKinematics(const Device::Ptr device, const SerialDevice::Ptr sdevice, c
     }
     else
         cout << "SOLUTION RETURNED!!!!!!!" << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl << std::endl;
-        return solutions[0];
+        return solutions[1];
 }
 
 // LinearInterpolatedPath Function Defined
@@ -144,6 +181,9 @@ int main() {
 
       //--------------------------------------------------------------------------------------------
 
+      Transform3D<> Sp[] = {F1,F2,F3,F4,F5};
+      Transform3D<> Ep[] = {T1,T2,T3,T4,T5};
+
     /** Most easy way: uses default parameters based on given device
         sampler: QSampler::makeUniform(device)
         metric: PlannerUtil::normalizingInfinityMetric(device->getBounds())
@@ -156,15 +196,8 @@ int main() {
     QConstraint::Ptr Qconstraint = QConstraint::make(&detector, device, state);
 
     double extend = 0.05;
-    QToQPlanner::Ptr planner = RRTPlanner::makeQToQPlanner(constraint, sampler, metric, extend, RRTPlanner::RRTConnect);
+//    QToQPlanner::Ptr planner = RRTPlanner::makeQToQPlanner(constraint, sampler, metric, extend, RRTPlanner::RRTConnect);
 
-    /** PRM PLANNER*/
-    PRMPlanner* prm = new PRMPlanner(device.get(), state, &detector, 0.1); //input device as (rw::models::Device*)
-//    PRMPlanner* prm = new PRMPlanner(Qconstraint, sampler, 0.1, device, state); //input device as (rw::models::Device*)
-    prm->setCollisionCheckingStrategy(PRMPlanner::LAZY);
-    prm->setNeighSearchStrategy(PRMPlanner::BRUTE_FORCE);
-    prm->setShortestPathSearchStrategy(PRMPlanner::A_STAR);
-    prm->buildRoadmap(5000);
 
     //Input Initial position Trasformation matrix
 //    Vector3D<> V0(0.1, -0.17, 0.98);
@@ -176,50 +209,70 @@ int main() {
 //    RPY<> R1(3.0, 0.1, -3.0);
 //    Transform3D<> TO(V1, R1.toRotation3D()); //POSITION TO TRANSFORMATION MATRIX
 
-    Q from = inverseKinematics(device, sdevice, state, F1);
 
-    Q to = inverseKinematics(device, sdevice, state, T1);
-
-    if (!checkCollisions(device, state, detector, from))
-        return 0;
-    if (!checkCollisions(device, state, detector, to))
-        return 0;
-
-    cout << "Planning from " << from << " to " << to << endl;
-    QPath path;
-    Timer t;
-    t.resetAndResume();
 
 
     //Call RRT planner
     //planner->query(from,to,path,MAXTIME); //run planner
+    int i=0; int k;
+for (k=0;k<100;k++){
+    i=0;
+    while (i< 5){
+        /** PRM PLANNER*/
+        QPath path;
+        Timer t;
+        t.resetAndResume();
 
-    //Call PRM planner
-    prm->query(from,to,path,MAXTIME);
+        Q from = inverseKinematics(device, sdevice, state, Sp[i] );
+        Q to = inverseKinematics(device, sdevice, state, Ep[i]);
 
-    //LinearInterpolate Path
-    //path.size() == 2;
-    //rw::math::Q start_configuration = path.at(0);
-    //rw::math::Q end_configuration = path.at(1);
+        if (!checkCollisions(device, state, detector, from))
+            return 0;
+        if (!checkCollisions(device, state, detector, to))
+            return 0;
 
-    // replace the path with an interpolated path
-    //path = linearInterpolatedPath(start_configuration, end_configuration);
+        cout << "Planning from " << from << " to " << to << endl;
 
-    // replace the path with an Optimized path
-    //rwlibs::pathoptimization::PathLengthOptimizer::QList PathLengthOptimizer;
-    //PathLengthOptimizer = rwlibs::pathoptimization::PathLengthOptimizer(constraint,metric);
-    //path = PathLengthOptimizer.partialShortCut(path);
-    delete(prm);
-    t.pause();
-    cout << "Path of length " << path.size() << " found in " << t.getTime() << " seconds." << endl;
-    if (t.getTime() >= MAXTIME) {
-        cout << "Notice: max time of " << MAXTIME << " seconds reached." << endl;
+        PRMPlanner* prm = new PRMPlanner(device.get(), state, &detector, 0.1); //input device as (rw::models::Device*)
+    //    PRMPlanner* prm = new PRMPlanner(Qconstraint, sampler, 0.1, device, state); //input device as (rw::models::Device*)
+        prm->setCollisionCheckingStrategy(PRMPlanner::LAZY);
+        prm->setNeighSearchStrategy(PRMPlanner::BRUTE_FORCE);
+        prm->setShortestPathSearchStrategy(PRMPlanner::A_STAR);
+        prm->buildRoadmap(10000);
+        //Call PRM planner
+        prm->query(from,to,path,MAXTIME);
+
+        //LinearInterpolate Path
+        //path.size() == 2;
+        //rw::math::Q start_configuration = path.at(0);
+        //rw::math::Q end_configuration = path.at(1);
+
+        // replace the path with an interpolated path
+        //path = linearInterpolatedPath(start_configuration, end_configuration);
+
+        // replace the path with an Optimized path
+        //rwlibs::pathoptimization::PathLengthOptimizer::QList PathLengthOptimizer;
+        //PathLengthOptimizer = rwlibs::pathoptimization::PathLengthOptimizer(constraint,metric);
+        //path = PathLengthOptimizer.partialShortCut(path);
+        t.pause();
+        cout << "Path of length " << path.size() << " found in " << t.getTime() << " seconds." << endl;
+        if (t.getTime() >= MAXTIME) {
+            cout << "Notice: max time of " << MAXTIME << " seconds reached." << endl;
+        }
+
+        for (QPath::iterator it = path.begin(); it < path.end(); it++) {
+            cout << *it << endl;
+        }
+
+        cout << t.getTime() << ";" << getTdistance(path,wc,device,state) << ";" << path.size() << endl;
+
+
+        delete(prm);
+        //delete(path);
+        i++;
     }
 
-    for (QPath::iterator it = path.begin(); it < path.end(); it++) {
-        cout << *it << endl;
-    }
-
+}
     cout << "Program done." << endl;
     return 0;
 
