@@ -32,7 +32,7 @@ using namespace rwlibs::proximitystrategies;
 
 #define MAXTIME 30
 #define DEBUG 0
-#define OUT 11
+#define OUT 2
 #define ONLYRRT 0
 
 #define TableXSurface -0.7 //1.5  // REAL 40.25  //sqrt(20²+8²+34²)
@@ -107,10 +107,10 @@ bool checkBorder(WorkCell::Ptr wc,Device::Ptr device, const State &state, const 
     // Alternatively check .x() .y() .z()
     Transform3D<> point3D = getPoint(wc,device, state, q);
     Vector3D<> d = point3D.P();
-//    if (dot(d,d.x()) <= TableXSurface)
    // cout << dot(d,d.y()) << endl;
     if (dot(d,d.y()) > TableYSurface)
         return false;
+//    if (dot(d,d.x()) <= TableXSurface)
     return true;
 }
 
@@ -294,7 +294,7 @@ QPath pathPlanner(PRMPlanner* prm, WorkCell::Ptr wc,Transform3D<> FROM, Transfor
                 else
                     lastCorrect = *(--it);
                 // Get the point of the new start of the dynamic zone
-               //cout << "BARK"<<endl;
+               //cout << "BARK " << i << " times"<<endl;
                 //cout << lastCorrect<<endl;
                 //Transform3D<> newStart = getPoint(wc,device, state, lastCorrect);
                 pathRRT = rrtPath(wc,lastCorrect,TO,device,sdevice,state,metric);
@@ -423,7 +423,7 @@ int main() {
    // for (k=0;k<10;k++){
    //     i = 0;
     int k = 0;
-    for (k=0;k<100;k++){
+    for (k=0;k<1;k++){
         i = 0;
         while (i < 5){
            // cout <<Sp[i] << "   "<< Ep[i] << endl;
@@ -438,7 +438,7 @@ int main() {
 
             /** Path Optimization **/
             rwlibs::pathoptimization::PathLengthOptimizer PathLengthOptimizer(constraint, metric); // Optimize Pathpranning
-            QPath pathOpti= path;//PathLengthOptimizer.pathPruning(path); // Optimize Path using PathPruning method
+            QPath pathOpti= PathLengthOptimizer.pathPruning(path); // Optimize Path using PathPruning method
             //QPath pathOpti= PathLengthOptimizer.shortCut(path); // Optimize Path using shortcut method
 
             local.pause();
@@ -457,21 +457,23 @@ int main() {
                         cout << "Notice: max time of " << MAXTIME << " seconds reached." << endl;
                     }
                     // Original Path
+                    cout << "Original Path" << endl;
                     for (QPath::iterator it = path.begin(); it < path.end(); it++) {
                         cout << *it << endl;
                     }
 
-                    cout << "..." << endl<< endl;
+                    cout << "......................................" << endl<< endl;
 
                     // Optimized Path
                     cout << "Optimized Path" << endl;
                     for (QPath::iterator it = pathOpti.begin(); it < pathOpti.end(); it++) {
                         cout << *it << endl;
                     }
-
+                    cout << endl;
+                    cout << endl;
             }
             else {
-               cout << local.getTime() << ";" << getTdistance(pathOpti,wc,device,state) << ";" << path.size() << endl;
+               cout << local.getTime() << ";" << getTdistance(pathOpti,wc,device,state) << ";" << pathOpti.size() << endl;
             }
             i++;
         }
