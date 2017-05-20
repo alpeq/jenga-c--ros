@@ -27,6 +27,7 @@ Eigen::Matrix4f SpinImages(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::Point
 //take time
 	high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
+
 		//Create the histograms to contain the images
 	pcl::PointCloud<pcl::Histogram<153> >::Ptr modelImages(new pcl::PointCloud<pcl::Histogram<153> >());
 	pcl::PointCloud<pcl::Histogram<153> >::Ptr sceneImages(new pcl::PointCloud<pcl::Histogram<153> >());
@@ -47,27 +48,9 @@ Eigen::Matrix4f SpinImages(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::Point
 		spinMatches= i;
 	}
 
-	high_resolution_clock::time_point t2 = high_resolution_clock::now();
-	auto duration = duration_cast<microseconds>( t2 - t1 ).count();
-
-	// Show matches
-	 cout <<"Done!"<< '\n';
-visualization::PCLVisualizer match_viewer("Matches");
-match_viewer.addPointCloud<PointXYZ>(model, "Model");
-match_viewer.addPointCloud<PointXYZ>(scene, "Scene");
-match_viewer.addCorrespondences<PointXYZ>(model, scene, corr, 1);
-match_viewer.spin();
-
- //report number of matches to console and log
- 	cout << "Normals, extraction, and matching done in time: "<<duration/1000.0 <<" miliseconds\n";
- 	cout << METHOD << " Found " << spinMatches << " matches!\n";
-	clog << "Normals, extraction, and matching done in time: "<<duration/1000.0 <<" miliseconds \n";
-	clog << METHOD << " Found " << spinMatches << " matches!\n";
-	cout.flush();
+ Present_and_Report(t1,model, scene, corr, spinMatches);
 
 	//Estimate the pose using RANSAC
-	cout <<"Done!" <<'\n';
-	cout.flush();
 	Eigen::Matrix4f pose = RANSAC(model, scene, corr);
 	return pose;
 }
@@ -76,7 +59,7 @@ match_viewer.spin();
 pcl::PointCloud<pcl::Histogram<153> > ExtractSpinImages(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float spinRadius) {
 	//If spinRadius not specified, use the SPIN_RADIUS value, otherwise use the given value
 	if (spinRadius == -1)
-		spinRadius = SPIN_RADIUS;
+		spinRadius = FEATURE_RADIUS;
 
 	//Prepare the ImageSpinner
 	pcl::SpinImageEstimation<pcl::PointXYZ, pcl::Normal, pcl::Histogram<153> > image_spinner;

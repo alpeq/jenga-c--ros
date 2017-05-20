@@ -1807,3 +1807,641 @@ Final Pose
          0          0          0          1
 To view result, run: 
 pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd ../pointclouds/ABE.pcd
+<----------------------- Sat May 20 14:10:04 2017
+ -------------------------->Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Scene:       
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1422.83 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd ../pointclouds/ABE.pcd
+Scene: ../pointclouds/Filtered_PointClouds/fig_middle_front.pcd
+Normals, extraction, and matching done in time: 630.426 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 235 Ransac iterarions:
+	 Best pose found has 857 inliers.
+	Score: 1182.07 (inliers / threshold * C_downsampling) 
+<----------------------- Sat May 20 14:21:52 2017
+ -------------------------->Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Scene:       
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1630.17 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT.pcd
+<----------------------- Sat May 20 14:32:00 2017
+ -------------------------->Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Scene:       
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1479.12 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT.pcd
+<----------------------- Sat May 20 14:37:11 2017
+ -------------------------->Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Scene:       
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1597.41 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_Sat May 20 14:37:25 2017
+.pcd
+<----------------------- Sat May 20 14:45:36 2017
+ -------------------------->Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Scene:       
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+<----------------------- Sat May 20 14:46:12 2017
+ -------------------------->Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Scene:       
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1551.73 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495284385.pcd
+<----------------------- Sat May 20 14:51:23 2017
+ -------------------------->Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Scene:       
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1463.21 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495284697.pcd
+<----------------------- Sat May 20 14:53:24 2017
+ -------------------------->Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Scene:       
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1534.85 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.005000_Filtered.pcd ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495284816.pcd
+<---------------------------------------------------------------- Sat May 20 15:06:41 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1496.53 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+<---------------------------------------------------------------- Sat May 20 15:09:37 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1491.26 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+<---------------------------------------------------------------- Sat May 20 15:10:15 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1476.71 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.005000_Filtered.pcd
+ -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495285836.pcd -fc 0,255,0
+Scene: ../pointclouds/Filtered_PointClouds/fig_middle_front.pcd
+Normals, extraction, and matching done in time: 681.868 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 235 Ransac iterarions:
+	 Best pose found has 857 inliers.
+	Score: 1182.07 (inliers / threshold * C_downsampling) 
+Final Pose
+  -0.958979    0.243404   -0.145308    0.019642
+   0.237749    0.411416   -0.879894 -0.00727578
+  -0.154388   -0.878346   -0.452408    0.574728
+          0           0           0           1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_middle_front_0.005000_Filtered.pcd
+ -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_middle_front_pose_RESULT_1495285848.pcd -fc 0,255,0
+Scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_middle.pcd
+Normals, extraction, and matching done in time: 1955.26 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 259 Ransac iterarions:
+	 Best pose found has 739 inliers.
+	Score: 1019.31 (inliers / threshold * C_downsampling) 
+Final Pose
+ 0.457332  0.845903 -0.274402 0.0882828
+  -0.3187  0.443963  0.837453 0.0789537
+ 0.830227 -0.295542  0.472627  0.628893
+        0         0         0         1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_middle_0.005000_Filtered.pcd
+ -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_middle_pose_RESULT_1495285879.pcd -fc 0,255,0
+Scene: ../pointclouds/Filtered_PointClouds/fig_middle_side.pcd
+Normals, extraction, and matching done in time: 833.76 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 160 Ransac iterarions:
+	 Best pose found has 979 inliers.
+	Score: 1350.34 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.0255148   -0.998589  -0.0465838   0.0427346
+  -0.496109   0.0531044   -0.866635 -0.00511842
+   0.867886 0.000998661   -0.496763     0.55966
+          0           0           0           1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_middle_side_0.005000_Filtered.pcd
+ -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_middle_side_pose_RESULT_1495285898.pcd -fc 0,255,0
+Scene: ../pointclouds/Filtered_PointClouds/fig_ball_middle.pcd
+Normals, extraction, and matching done in time: 1088.8 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 400 Ransac iterarions:
+	 Best pose found has 1015 inliers.
+	Score: 1400 (inliers / threshold * C_downsampling) 
+<---------------------------------------------------------------- Sat May 20 15:17:17 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1493.14 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+<---------------------------------------------------------------- Sat May 20 15:18:25 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1595.69 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+<---------------------------------------------------------------- Sat May 20 15:19:57 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Normals, extraction, and matching done in time: 1742.63 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495286414.pcd -fc 0,255,0
+Scene: ../pointclouds/Filtered_PointClouds/fig_middle_front.pcd
+Normals, extraction, and matching done in time: 634.877 miliseconds 
+SPINIMAGES Found 1189 matches!
+After 235 Ransac iterarions:
+	 Best pose found has 857 inliers.
+	Score: 1182.07 (inliers / threshold * C_downsampling) 
+<---------------------------------------------------------------- Sat May 20 15:31:59 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+SPINIMAGES took: 1588.83 miliseconds
+SPINIMAGES Found 1189 matches!
+After 439 Ransac iterarions:
+	 Best pose found has 837 inliers.
+	Score: 1154.48 (inliers / threshold * C_downsampling) 
+Final Pose
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495287132.pcd -fc 0,255,0
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_middle_front.pcd
+SPINIMAGES took: 546.862 miliseconds
+SPINIMAGES Found 1189 matches!
+After 235 Ransac iterarions:
+	 Best pose found has 857 inliers.
+	Score: 1182.07 (inliers / threshold * C_downsampling) 
+<--------------------------------------------------------------------------------------------------------------- Sat May 20 15:45:16 2017
+Feature Method: SPINIMAGES
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     500
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+SPINIMAGES took: 1524.25 miliseconds
+SPINIMAGES Found 1189 matches!
+Iterations of RANSAC = 	439 yields:
+
+	Pose inliers = 837
+	Score        = 1154.48		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ -0.403467  -0.914685  0.0238097  0.0995509
+  0.264942 -0.0918798   0.959877   0.121491
+ -0.875797   0.393587   0.279409    0.53388
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495287930.pcd -fc 0,255,0
+
+
+<--------------------------------------------------------------------------------------------------------------- Sat May 20 16:57:53 2017
+Feature Method: FPFH
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     1000
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Iterations of RANSAC = 	916 yields:
+
+	Pose inliers = 744
+	Score        = 1026.21		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	0.0001 and 1000 ransac iterations 
+Iterations of RANSAC = 	916 yields:
+
+	Pose inliers = 644
+	Score        = 1288		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	5e-05 and 10000 ransac iterations 
+Iterations of RANSAC = 	5920 yields:
+
+	Pose inliers = 466
+	Score        = 1864		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	2.5e-05 and 1000 ransac iterations 
+Iterations of RANSAC = 	916 yields:
+
+	Pose inliers = 306
+	Score        = 2448		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	1.5e-05 and 750 ransac iterations 
+Iterations of RANSAC = 	337 yields:
+
+	Pose inliers = 221
+	Score        = 2946.67		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	1e-05 and 1000 ransac iterations 
+Iterations of RANSAC = 	337 yields:
+
+	Pose inliers = 173
+	Score        = 3460		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	7.5e-06 and 2000 ransac iterations 
+Iterations of RANSAC = 	337 yields:
+
+	Pose inliers = 143
+	Score        = 3813.33		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	3.5e-06 and 1000 ransac iterations 
+Iterations of RANSAC = 	337 yields:
+
+	Pose inliers = 57
+	Score        = 3257.14		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	1.75e-06 and 15000 ransac iterations 
+Iterations of RANSAC = 	4241 yields:
+
+	Pose inliers = 28
+	Score        = 3200		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	1.5e-06 and 1500 ransac iterations 
+Iterations of RANSAC = 	1299 yields:
+
+	Pose inliers = 22
+	Score        = 2933.33		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	1.5e-06 and 4000 ransac iterations 
+Iterations of RANSAC = 	1299 yields:
+
+	Pose inliers = 22
+	Score        = 2933.33		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	7.5e-07 and 1500 ransac iterations 
+Iterations of RANSAC = 	75 yields:
+
+	Pose inliers = 9
+	Score        = 2400		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	5e-07 and 1500 ransac iterations 
+Iterations of RANSAC = 	75 yields:
+
+	Pose inliers = 6
+	Score        = 2400		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	5e-06 and 6000 ransac iterations 
+Iterations of RANSAC = 	4241 yields:
+
+	Pose inliers = 100
+	Score        = 4000		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	1e-06 and 6000 ransac iterations 
+Iterations of RANSAC = 	3906 yields:
+
+	Pose inliers = 15
+	Score        = 3000		 (inliers / threshold * C_downsampling) 
+
+<--------------------------------------------------------------------------------------------------------------- Sat May 20 17:08:47 2017
+Feature Method: FPFH
+Norm Radius: 0.15
+Spin Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     1000
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Iterations of RANSAC = 	916 yields:
+
+	Pose inliers = 744
+	Score        = 1026.21		 (inliers / threshold * C_downsampling) 
+
+<--------------------------------------------------------------------------------------------------------------- Sat May 20 17:14:14 2017
+Feature Method: FPFH
+Norm Radius: 0.15
+Feature Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     1000
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Iterations of RANSAC = 	872 yields:
+
+	Pose inliers = 682
+	Score        = 940.69		 (inliers / threshold * C_downsampling) 
+
+<--------------------------------------------------------------------------------------------------------------- Sat May 20 17:38:02 2017
+Feature Method: FPFH
+Norm Radius: 0.15
+Feature Radius: 0.15
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     1000
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+FPFH took: 1763.75 miliseconds
+FPFH Found 0 matches!
+Iterations of RANSAC = 	872 yields:
+
+	Pose inliers = 682
+	Score        = 940.69		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ -0.33881  0.898131 -0.280301 0.0599791
+-0.421195  0.121612   0.89878  0.124096
+  0.84131  0.422577  0.337085  0.535583
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495294710.pcd -fc 0,255,0
+
+
+<--------------------------------------------------------------------------------------------------------------- Sat May 20 17:39:55 2017
+Feature Method: FPFH
+Norm Radius: 0.05
+Feature Radius: 0.05
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     1000
+Inlier +/-:     0.000145
+Leafsize:    0.005
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+FPFH took: 935.511 miliseconds
+FPFH Found 0 matches!
+Iterations of RANSAC = 	919 yields:
+
+	Pose inliers = 610
+	Score        = 841.379		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	0.0001 and 1000 ransac iterations 
+Iterations of RANSAC = 	919 yields:
+
+	Pose inliers = 484
+	Score        = 968		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	5e-06 and 4000 ransac iterations 
+Iterations of RANSAC = 	1301 yields:
+
+	Pose inliers = 56
+	Score        = 2240		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ 0.755134 -0.467847  -0.45923 0.0424963
+ -0.11095  0.599194 -0.792879 0.0246927
+ 0.646114  0.649681  0.400564  0.591746
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495294940.pcd -fc 0,255,0
+
+
+<--------------------------------------------------------------------------------------------------------------- Sat May 20 17:42:49 2017
+Feature Method: FPFH
+Norm Radius: 0.05
+Feature Radius: 0.05
+Model:       ../pointclouds/ABE.pcd
+Ransac itr:     1000
+Inlier +/-:     0.000145
+Leafsize:    0.01
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+FPFH took: 127.609 miliseconds
+FPFH Found 0 matches!
+Iterations of RANSAC = 	23 yields:
+
+	Pose inliers = 122
+	Score        = 84.1379		 (inliers / threshold * C_downsampling) 
+
+Reusing Spin Images with Inlier threshold of: 
+	5e-05 and 5000 ransac iterations 
+Iterations of RANSAC = 	4170 yields:
+
+	Pose inliers = 79
+	Score        = 158		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+   0.678869    0.690385    -0.25001  0.00713789
+   0.394217   -0.629958   -0.669139 -0.00138625
+  -0.619459    0.355699   -0.699821     0.54431
+          0           0           0           1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.010000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495295075.pcd -fc 0,255,0
+
+

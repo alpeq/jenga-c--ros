@@ -1,17 +1,17 @@
-0.15
-0.15					
-500.0
+0.05
+0.05					
+1000.0
 0.000145
 ../pointclouds/ABE.pcd
-SPINIMAGES
-0.005
+FPFH
+0.0075
 ../pointclouds/Filtered_PointClouds/block_far_corner.pcd
 end
 
 [Above setting are in following order:]
 
 Norm radius // height of the norm. 0.2 seems to be fast 0.375 seems to be good 
-Spin radius // norm x spin radius gives the square  0.2 seems to be fast 0.375 seems to be good	
+feature radius // norm x feature radius gives the square  0.2 seems to be fast 0.375 seems to be good	
 //bigger values give more specificity but also more computation time, on the other hand time vested here, saves time due to less poossible configurations.
 
 Ransac iterations

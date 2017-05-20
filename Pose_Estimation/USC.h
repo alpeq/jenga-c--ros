@@ -5,7 +5,7 @@
 
 #include "common.h"
 
-#define USC_RADIUS		0.05
+#define USC_RADIUS		FEATURE_RADIUS
 
 
 /***** This file contains the following functions *****/
@@ -16,6 +16,8 @@ inline float dist_sq(const pcl::ShapeContext1980 &query, const pcl::ShapeContext
 
 
 Eigen::Matrix4f USC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene) {
+	//take time
+		high_resolution_clock::time_point t1 = high_resolution_clock::now();
 	//Create the histograms to contain the SHOT
 	pcl::PointCloud<pcl::ShapeContext1980>::Ptr modelUSC(new pcl::PointCloud<pcl::ShapeContext1980>());	//Create a cloud to save results
 	pcl::PointCloud<pcl::ShapeContext1980>::Ptr sceneUSC(new pcl::PointCloud<pcl::ShapeContext1980>());	//Create a cloud to save results
@@ -31,6 +33,9 @@ Eigen::Matrix4f USC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<p
 		nearest_feature(modelUSC->points[i], *sceneUSC, corr[i].index_match, corr[i].distance);
 	}
 
+
+ Present_and_Report(t1,model, scene, corr, spinMatches);
+ 
 	//Estimate the pose using RANSAC
 	Eigen::Matrix4f pose = RANSAC(model, scene, corr);
 
@@ -69,7 +74,7 @@ inline float dist_sq(const pcl::ShapeContext1980 &query, const pcl::ShapeContext
         const float diff = reinterpret_cast<const float*>(&query)[i] - reinterpret_cast<const float*>(&target)[i];
         result += diff * diff;
     }
-    
+
     return result;
 }
 

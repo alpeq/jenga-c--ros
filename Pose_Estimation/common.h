@@ -33,29 +33,12 @@ std::vector<std::string> pcds;
 string MODEL_PATH="\0";
 string METHOD="\0";
 float NORM_RADIUS = 0.0;
-float SPIN_RADIUS = 0.0;
+float FEATURE_RADIUS = 0.0;
 float RANSAC_ITR = 0.0;
 float INLIER_TRSH = 0.0;
 float LEAFSIZE = 0.0;
 
-int MAX_DATE=20;
 
-std::string get_date(void)
-{
-   time_t now;
-   char the_date[MAX_DATE];
-
-   the_date[0] = '\0';
-
-   now = time(NULL);
-
-   if (now != -1)
-   {
-      strftime(the_date, MAX_DATE, "%d_%m_%Y", gmtime(&now));
-   }
-
-   return std::string(the_date);
-}
 
 /***** This file contains the following functions *****/
 pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float normRadius = -1);
@@ -162,12 +145,9 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 	cout << "\t" << "Applying best pose with inliers: " << INLIERS << '\n' << "\n";
 	cout << "\t" << "Score: "<<RANSACSCORE<< " (inliers / threshold * C_downsampling) \n";
 	cout << "\t" << "Overall Score: "<<RANSACSCORE<< " (inliers / threshold * C_downsampling) \n";
-
-	cout << "\t" << "cost function "<<RANSACSCORE<< " (inliers / threshold * C_downsampling) \n";
-
-	clog << "After " << RANSACS <<" Ransac iterarions:\n";
-	clog << "\t Best pose found has "<<INLIERS<< " inliers." <<"\n";
-	clog << "\t" << "Score: "<<RANSACSCORE<< " (inliers / threshold * C_downsampling) \n";
+	clog << "Iterations of RANSAC = \t" << RANSACS <<" yields:\n" << "\n";
+	clog << "\t" << "Pose inliers = "<<INLIERS<<"\n";
+	clog << "\t" << "Score        = "<<RANSACSCORE<< "\t\t (inliers / threshold * C_downsampling) \n" << "\n";
 
 	cout.flush();
 	clog.flush();
@@ -232,7 +212,7 @@ void Load_Settings() {
 	fin.open(path);                        // Open the file //path.c_str()
 	if(fin.is_open())                      // If it opened successfully
 	{
-		fin >> NORM_RADIUS >> SPIN_RADIUS >> RANSAC_ITR
+		fin >> NORM_RADIUS >> FEATURE_RADIUS >> RANSAC_ITR
 		 		>> INLIER_TRSH >> MODEL_PATH >> METHOD >> LEAFSIZE;  // Read the values and
 	// store them in these variables
 
@@ -266,27 +246,20 @@ string BackToOriginal = ReplaceStringInPlace(MODEL_PATH, ".ini", ".pcd");
 		cout << "<---------------[SETTINGS]---------------->\n"; //report settings used to console
 		cout << asctime(curtime); // "\n"
 		cout << "Norm Radius:    " << NORM_RADIUS << '\n';
-		cout << "Spin Radius:    " << SPIN_RADIUS << '\n';
+		cout << "Feature Radius:    " << FEATURE_RADIUS << '\n';
 		cout << "Feature Method: "<< METHOD << "\n";
-		cout << "Scene:      " << SCENE_PATH << "\n";
 		cout << "Model:      " << MODEL_PATH << "\n";
 		cout << "Ransac itr:     "<< RANSAC_ITR << "\n";
 		cout << "Inlier +/-:     "<< INLIER_TRSH << "\n";
 		cout << "Leafsize:       "<< LEAFSIZE << "\n\n";
-/*
-		cout << pcds.size() << endl;
-		for (int i = 0; i < pcds.size(); i++) {
-			cout << i << ": " << pcds[i] << "\n";
-		}
-		*/
+
 		cout.flush();
 
 		// Send similar info to log file
-		clog << "<---------- " << asctime(curtime);
+		clog << "<--------------------------------------------------------------------------------------------------------------- " << asctime(curtime);
 		clog << "Feature Method: "<< METHOD << "\n";
 		clog << "Norm Radius: " << NORM_RADIUS << '\n';
-		clog << "Spin Radius: " << SPIN_RADIUS << '\n';
-		clog << "Scene:       " << SCENE_PATH << "\n";
+		clog << "Feature Radius: " << FEATURE_RADIUS << '\n';
 		clog << "Model:       " << MODEL_PATH << "\n";
 		clog << "Ransac itr:     "<< RANSAC_ITR << "\n";
 		clog << "Inlier +/-:     "<< INLIER_TRSH << "\n";
@@ -295,7 +268,28 @@ string BackToOriginal = ReplaceStringInPlace(MODEL_PATH, ".ini", ".pcd");
 
 }
 
+void Present_and_Report(high_resolution_clock::time_point t1,pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene, pcl::Correspondences corr, int spinMatches) {
+// Remember to add before extraction and matching high_resolution_clock::time_point t1 = high_resolution_clock::now();
+ high_resolution_clock::time_point t2 = high_resolution_clock::now();
+ auto duration = duration_cast<microseconds>( t2 - t1 ).count();
 
+ // Show matches
+	cout <<"Done!"<< '\n';
+visualization::PCLVisualizer match_viewer("Matches");
+match_viewer.addPointCloud<PointXYZ>(model, "Model");
+match_viewer.addPointCloud<PointXYZ>(scene, "Scene");
+match_viewer.addCorrespondences<PointXYZ>(model, scene, corr, 1);
+match_viewer.spin();
+
+//report number of matches to console and log
+ cout << METHOD <<" took: "<<duration/1000.0 <<" miliseconds\n";
+ cout << METHOD << " Found " << spinMatches << " matches!\n";
+ clog << METHOD <<" took: "<<duration/1000.0 <<" miliseconds\n";
+ clog << METHOD << " Found " << spinMatches << " matches!\n";
+ cout <<"Done!" <<'\n';
+ cout.flush();
+ clog.flush();
+}
 
 
 //This function does not work as intended now, but does not harm either, we leave it for future improvement

@@ -5,7 +5,7 @@
 
 #include "common.h"
 
-#define SHOT_RADIUS		0.1
+#define SHOT_RADIUS		FEATURE_RADIUS
 
 
 /***** This file contains the following functions *****/
@@ -16,6 +16,8 @@ inline float dist_sq(const pcl::SHOT352 &query, const pcl::SHOT352 &target);
 
 
 Eigen::Matrix4f SHOT(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene) {
+	//take time
+		high_resolution_clock::time_point t1 = high_resolution_clock::now();
 	//Create the histograms to contain the SHOT
 	pcl::PointCloud<pcl::SHOT352>::Ptr modelSHOT(new pcl::PointCloud<pcl::SHOT352>());	//Create a cloud to save results
 	pcl::PointCloud<pcl::SHOT352>::Ptr sceneSHOT(new pcl::PointCloud<pcl::SHOT352>());	//Create a cloud to save results
@@ -31,6 +33,8 @@ Eigen::Matrix4f SHOT(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<
 		nearest_feature(modelSHOT->points[i], *sceneSHOT, corr[i].index_match, corr[i].distance);
 	}
 
+ Present_and_Report(t1,model, scene, corr, spinMatches);
+ 
 	//Estimate the pose using RANSAC
 	Eigen::Matrix4f pose = RANSAC(model, scene, corr);
 
@@ -72,7 +76,7 @@ inline float dist_sq(const pcl::SHOT352 &query, const pcl::SHOT352 &target) {
         const float diff = reinterpret_cast<const float*>(&query)[i] - reinterpret_cast<const float*>(&target)[i];
         result += diff * diff;
     }
-    
+
     return result;
 }
 

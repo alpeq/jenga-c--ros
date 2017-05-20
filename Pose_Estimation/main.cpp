@@ -29,10 +29,22 @@ clog.rdbuf(ofs.rdbuf()); //Redirecting the clog buffer stream, to file
     cout.flush();
 
     Load_Settings();
+    /*
+    for (int h = 0; h < 2; h++) // for every model:
+    {
+      if (h==0)
+      MODEL_PATH = "../pointclouds/ABE.pcd";
+
+      if (h==1)
+      MODEL_PATH = "../pointclouds/BALL.pcd";
+
+      if (h=2)
+      MODEL_PATH = "../pointclouds/BLOCK.pcd";
+ */
     for (int i = 0; i < pcds.size(); i++)
   	{
-      cout << "Scene: " << pcds[i] << "\n";
-      clog << "Scene: " << pcds[i] << "\n";
+      cout << "Loading scene: " << pcds[i] << "\n";
+      clog << "Loading scene: " << pcds[i] << "\n";
       SCENE_PATH=pcds[i];
 // if path is a folder make a list of the files and loop through
     //Read the input
@@ -43,6 +55,7 @@ clog.rdbuf(ofs.rdbuf()); //Redirecting the clog buffer stream, to file
         clog << "Error: Couldn't read file." << '\n';
         return -1;
     }
+
 FilterBackground(scene,scene);
 FilterTable(scene,scene);
 pcl::PointCloud<pcl::PointXYZ>::Ptr scene_ds (new pcl::PointCloud<pcl::PointXYZ>);
@@ -99,24 +112,31 @@ cout << alignedModel.size()
 	//Save output
 
 
-clog << "Final Pose\n" <<pose << "\n";
+
+
+time_t seconds_ident = time(nullptr);
+string tagger =asctime(std::localtime(&seconds_ident));
+string timestamp= to_string(seconds_ident);
+
+  string renameing = ReplaceStringInPlace(SCENE_PATH, ".pcd", "");
+  string MODEL_AND_POSE= renameing+"_pose_RESULT_"+timestamp+".pcd";
+
+  string leafsize= to_string(LEAFSIZE);
+  string FILTERED_SCENE = SCENE_PATH+"_"+leafsize+"_Filtered.pcd";
+
+clog << "Pose Transformation:\n" <<pose << "\n" << "\n";
 clog << "To view result, run: \n";
-clog << "pcl_viewer " << SCENE_PATH << " " << MODEL_PATH << endl;
+clog << "pcl_viewer " << FILTERED_SCENE << " -fc 255,0,0 "<< MODEL_AND_POSE << " -fc 0,255,0" << "\n" ;
+clog << "\n"<< "\n";
+clog.flush();
 
-time_t result = time(nullptr);
-string taggger =asctime(std::localtime(&result));
-
-    string renameing = ReplaceStringInPlace(SCENE_PATH, ".pcd", "");
-  //  string str2 = str.substr (-3,-)
-  string date= get_date();
-    string MODEL_AND_POSE= renameing+"_pose_RESULT.pcd";
-//    string MODEL_AND_POSE= renameing+"_"+taggger+"_pose_RESULT.pcd";
-
+    pcl::io::savePCDFileASCII(FILTERED_SCENE, *scene);
     pcl::io::savePCDFileASCII(MODEL_AND_POSE, *alignedModel);
 
 
 }
-}
+//} //for model loop
+} //main
 
 
 Eigen::Matrix4f select_feature_extraction(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene)

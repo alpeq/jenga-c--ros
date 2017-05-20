@@ -5,7 +5,7 @@
 
 #include "common.h"
 
-#define FPFH_RADIUS		0.1
+#define FPFH_RADIUS		FEATURE_RADIUS;
 
 
 /***** This file contains the following functions *****/
@@ -16,6 +16,9 @@ inline float dist_sq(const pcl::FPFHSignature33 &query, const pcl::FPFHSignature
 
 
 Eigen::Matrix4f FPFH(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene) {
+	//take time
+		high_resolution_clock::time_point t1 = high_resolution_clock::now();
+
 	//Create the histograms to contain the FPFH
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr modelFPFH(new pcl::PointCloud<pcl::FPFHSignature33>());	//Create a cloud to save results
 	pcl::PointCloud<pcl::FPFHSignature33>::Ptr sceneFPFH(new pcl::PointCloud<pcl::FPFHSignature33>());	//Create a cloud to save results
@@ -31,6 +34,8 @@ Eigen::Matrix4f FPFH(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<
 		nearest_feature(modelFPFH->points[i], *sceneFPFH, corr[i].index_match, corr[i].distance);
 	}
 
+ Present_and_Report(t1,model, scene, corr, spinMatches);
+ 
 	//Estimate the pose using RANSAC
 	Eigen::Matrix4f pose = RANSAC(model, scene, corr);
 
@@ -72,7 +77,7 @@ inline float dist_sq(const pcl::FPFHSignature33 &query, const pcl::FPFHSignature
         const float diff = reinterpret_cast<const float*>(&query)[i] - reinterpret_cast<const float*>(&target)[i];
         result += diff * diff;
     }
-    
+
     return result;
 }
 
