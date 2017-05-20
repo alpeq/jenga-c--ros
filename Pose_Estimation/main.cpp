@@ -5,20 +5,23 @@
 
 #include <chrono>
 
+
 #include "SpinImages.h"
 #include "FPFH.h"
 #include "SHOT.h"
-//#include "USC.h"
+#include "USC.h"
 #include "ICP.h"
 #include "filter.h"
 #include "common.h"
- 
+
 using namespace std::chrono;
+
 
 //placeholder definition of select feature function
 Eigen::Matrix4f select_feature_extraction(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene);
-
 int main (int argc, char* argv[]) {
+
+
 
 clog.rdbuf(ofs.rdbuf()); //Redirecting the clog buffer stream, to file
 
@@ -26,7 +29,12 @@ clog.rdbuf(ofs.rdbuf()); //Redirecting the clog buffer stream, to file
     cout.flush();
 
     Load_Settings();
-
+    for (int i = 0; i < pcds.size(); i++)
+  	{
+      cout << "Scene: " << pcds[i] << "\n";
+      clog << "Scene: " << pcds[i] << "\n";
+      SCENE_PATH=pcds[i];
+// if path is a folder make a list of the files and loop through
     //Read the input
     pcl::PointCloud<pcl::PointXYZ>::Ptr model (new pcl::PointCloud<pcl::PointXYZ>);
     pcl::PointCloud<pcl::PointXYZ>::Ptr scene (new pcl::PointCloud<pcl::PointXYZ>);
@@ -37,8 +45,13 @@ clog.rdbuf(ofs.rdbuf()); //Redirecting the clog buffer stream, to file
     }
 FilterBackground(scene,scene);
 FilterTable(scene,scene);
-DownSampler(scene,scene);
-DownSampler(model,model);
+pcl::PointCloud<pcl::PointXYZ>::Ptr scene_ds (new pcl::PointCloud<pcl::PointXYZ>);
+DownSampler(scene,scene_ds);
+scene = scene_ds;
+pcl::PointCloud<pcl::PointXYZ>::Ptr model_ds (new pcl::PointCloud<pcl::PointXYZ>);
+DownSampler(model,model_ds);
+model = model_ds;
+
 	//Display initial state
     pcl::visualization::PCLVisualizer init_view("Initial view");
     init_view.addPointCloud<pcl::PointXYZ>(scene, "Scene");
@@ -82,9 +95,12 @@ high_resolution_clock::time_point t2 = high_resolution_clock::now();
 	ICP_viewer.spin();
 
 	//Save output
-//	pcl::io::savePCDFileASCII("output.pcd", *alignedModel);
+    string renameing = ReplaceStringInPlace(SCENE_PATH, ".pcd", "");
+    string MODEL_AND_POSE= renameing+"_model_pose_RESULT.pcd";
+    pcl::io::savePCDFileASCII(MODEL_AND_POSE, *alignedModel);
 
 
+}
 }
 
 
@@ -97,8 +113,8 @@ else if (METHOD=="FPFH")
   return FPFH(model, scene);
 else if (METHOD=="SHOT")
   return SHOT(model, scene);
-//else if (METHOD=="USC")
-//  return = USC(model, scene);
+else if (METHOD=="USC")
+  return USC(model, scene);
 else
 	cout << "Error: The requested method specified in the settings file does not exist." << endl;
 

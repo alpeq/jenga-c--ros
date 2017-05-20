@@ -1,0 +1,38 @@
+0.375
+0.375					
+500.0
+0.000145
+../pointclouds/11k_abe_11x.pcd
+SPINIMAGES
+0.015
+../pointclouds/Filtered_PointClouds/block_middle_flat.pcd
+../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+../pointclouds/Filtered_PointClouds/block_near_corner.pcd
+../pointclouds/Filtered_PointClouds/fig_middle_front.pcd
+../pointclouds/Filtered_PointClouds/fig_ball_block_middle.pcd
+../pointclouds/Filtered_PointClouds/fig_middle_side.pcd
+../pointclouds/Filtered_PointClouds/block_far_corner.pcd
+../pointclouds/Filtered_PointClouds/fig_ball_middle.pcd
+../pointclouds/Filtered_PointClouds/fig_ball_block_near.pcd
+../pointclouds/Filtered_PointClouds/fig_ball_block_far.pcd
+../pointclouds/Filtered_PointClouds/fig_far_side.pcd
+../pointclouds/Filtered_PointClouds/fig_ball_occ_middle.pcd
+../pointclouds/Filtered_PointClouds/fig_near_side.pcd
+../pointclouds/Filtered_PointClouds/ball_middle.pcd
+../pointclouds/Filtered_PointClouds/block_middle_corner.pcd
+end
+
+[Above setting are in following order:]
+
+Norm radius // height of the norm. 0.2 seems to be fast 0.375 seems to be good 
+Spin radius // norm x spin radius gives the square  0.2 seems to be fast 0.375 seems to be good	
+//bigger values give more specificity but also more computation time, on the other hand time vested here, saves time due to less poossible configurations.
+
+Ransac iterations
+Inlier threshold // 0.00000155 has given the best results so far. 
+Scene path
+model path
+Feature extraction method (in capitals)
+leafsize of the downsampler (density in points pr volume)
+
+WHere is bin size?

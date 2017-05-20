@@ -29,6 +29,7 @@ ofstream ofs("../PoseEstimation_Log.txt",ios_base::app| ios_base::out);
 
 //initializing parameter settings
 string SCENE_PATH="\0";
+std::vector<std::string> pcds;
 string MODEL_PATH="\0";
 string METHOD="\0";
 float NORM_RADIUS = 0.0;
@@ -43,6 +44,7 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 void DownSampler(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_out);
 void Load_Settings(); //function definition placeholder
 float user_input();
+string ReplaceStringInPlace(std::string& subject, const std::string& search,const std::string& replace);
 
 //Compute normals function
 pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float normRadius) {
@@ -67,27 +69,20 @@ pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 }
 
 //Ransac
-
 Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene, pcl::Correspondences corr, int ransacItr, int inlierTrsh) {
 	cout << "Starting RANSAC..." << '\n';
   cout.flush();
 
-	//If number of iterations and inlier treshold not given, use the standard values in the beginning of this file
-/*
-	if (ransacItr == -1)
-		ransacItr = RANSAC_ITR;
-	if (inlierTrsh == -1)
-		inlierTrsh = INLIER_TRSH;
-*/
 	Eigen::Matrix4f pose = Eigen::Matrix4f::Identity();
+
 	while (true)
 	{
 	//Prepare for RANSAC
     	pcl::search::KdTree<pcl::PointXYZ> scene_tree;			//Create a k-d tree for scene
     	scene_tree.setInputCloud(scene);
 	//Create Matrix to save the pose
-	pcl::PointCloud<pcl::PointXYZ>::Ptr model_aligned(new pcl::PointCloud<pcl::PointXYZ>);		//Create a new point cloud for the aligned result
-// Start RANSAC
+	PointCloud<pcl::PointXYZ>::Ptr model_aligned(new pcl::PointCloud<pcl::PointXYZ>);		//Create a new point cloud for the aligned result
+	// Start RANSAC
 	float penalty = FLT_MAX;
 	int RANSACS=0;
 	size_t INLIERS = 0;
@@ -143,13 +138,18 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 		}
 	}
 
-	float RANSACSCORE = (INLIERS/INLIER_TRSH)/pow(10,7);
+	float RANSACSCORE = (INLIERS/(INLIER_TRSH*LEAFSIZE)/pow(10,6));
 	// Apply best pose found
 	cout << "\t" << "Applying best pose with inliers: " << INLIERS << '\n' << "\n";
-	cout << "\t" << "Score: "<<RANSACSCORE<< " inliers pr. threshold.\n";
+	cout << "\t" << "Score: "<<RANSACSCORE<< " (inliers / threshold * C_downsampling) \n";
+	cout << "\t" << "Overall Score: "<<RANSACSCORE<< " (inliers / threshold * C_downsampling) \n";
+
+	cout << "\t" << "cost function "<<RANSACSCORE<< " (inliers / threshold * C_downsampling) \n";
+
 	clog << "After " << RANSACS <<" Ransac iterarions:\n";
 	clog << "\t Best pose found has "<<INLIERS<< " inliers." <<"\n";
-	clog << "\t Score: "<<RANSACSCORE<< " inliers pr. threshold.\n" << "\n";
+	clog << "\t" << "Score: "<<RANSACSCORE<< " (inliers / threshold * C_downsampling) \n";
+
 	cout.flush();
 	clog.flush();
 
@@ -158,8 +158,10 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 
 	//View result
 	visualization::PCLVisualizer result_viewer("Result");
+	//visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color (model_aligned, 0, 255, 0);
 	result_viewer.addPointCloud<PointXYZ>(model_aligned, "Model aligned");
 	result_viewer.addPointCloud<PointXYZ>(scene, "Scene");
+
 	result_viewer.spin();
 
 	cout << "<------------------------------------------->\n \n";
@@ -176,14 +178,13 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 	//NEW_INLIER_TRSH = stof(input.c_str());
 	if (NEW_INLIER_TRSH == 0.0)
 	{
-	  cout << "exiting...";
+	  cout << "exiting...\n";
 	  cout.flush();
 	  sleep(1);
 	  break;
 	}
 
 	cout <<  "How many Ransac iterations? (int) \n";
-			//getline(cin, input);
 			float NEW_RANSAC_ITR= user_input();
 	clog << "Reusing Spin Images with Inlier threshold of: \n\t" << NEW_INLIER_TRSH << " and " <<NEW_RANSAC_ITR << " ransac iterations \n";
 	cout.flush();
@@ -204,23 +205,49 @@ void DownSampler(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, pcl::PointCloud<p
   downSampler.setInputCloud (cloud_in);
   downSampler.setLeafSize (LEAFSIZE,LEAFSIZE ,LEAFSIZE );
   downSampler.filter(*cloud_out);
-
 }
 
 void Load_Settings() {
-	//clog.rdbuf(ofs.rdbuf()); //Redirecting the clog buffer stream, to file
-
 	string path = "../settings.txt";
 	ifstream fin;                          // Declaring an input stream object
 	fin.open(path);                        // Open the file //path.c_str()
 	if(fin.is_open())                      // If it opened successfully
 	{
 		fin >> NORM_RADIUS >> SPIN_RADIUS >> RANSAC_ITR
-		 		>> INLIER_TRSH >> SCENE_PATH >> MODEL_PATH >> METHOD >> LEAFSIZE;  // Read the values and
-		 		// store them in these variables
+		 		>> INLIER_TRSH >> MODEL_PATH >> METHOD >> LEAFSIZE;  // Read the values and
+	// store them in these variables
+
+	string file_paths = ReplaceStringInPlace(MODEL_PATH, ".pcd", ".ini");
+	ifstream fin2;
+	cout << file_paths << "\n";
+
+	fin2.open(file_paths);
+	if(fin2.is_open())
+	{
+		//bool end = false;
+		//getline(fin2, path);//read empty line (quickfix/patch)
+		while (true){
+			getline(fin2, path);
+			if (path.compare("end") == 0)
+					break;
+			else {
+				pcds.push_back(path);
+						}
+					}
+			fin2.close();
+string BackToOriginal = ReplaceStringInPlace(MODEL_PATH, ".ini", ".pcd");
+cout << BackToOriginal;
+				}
+		else {
+			cerr << "Error opening .ini file" << '\n';
+		}
+
 		fin.close();
+
 	}
-		cout << "Done!\n";
+
+	cout << "Done!\n";
+	//current run settings
 		cout << "<---------------[SETTINGS]---------------->\n"; //report settings used to console
 		cout << asctime(curtime); // "\n"
 		cout << "Norm Radius:    " << NORM_RADIUS << '\n';
@@ -231,6 +258,12 @@ void Load_Settings() {
 		cout << "Ransac itr:     "<< RANSAC_ITR << "\n";
 		cout << "Inlier +/-:     "<< INLIER_TRSH << "\n";
 		cout << "Leafsize:       "<< LEAFSIZE << "\n\n";
+/*
+		cout << pcds.size() << endl;
+		for (int i = 0; i < pcds.size(); i++) {
+			cout << i << ": " << pcds[i] << "\n";
+		}
+		*/
 		cout.flush();
 
 		// Send similar info to log file
@@ -244,6 +277,10 @@ void Load_Settings() {
 		clog.flush();
 
 }
+
+
+
+
 //This function does not work as intended now, but does not harm either, we leave it for future improvement
 
 float user_input() {
@@ -257,6 +294,16 @@ float user_input() {
 		return user_input();
 	}
 	return user_in;
+}
+
+string ReplaceStringInPlace(std::string& subject, const std::string& search,const std::string& replace)
+{
+    size_t pos = 0;
+    while ((pos = subject.find(search, pos)) != std::string::npos) {
+         subject.replace(pos, search.length(), replace);
+         pos += replace.length();
+         return subject;
+    }
 }
 
 #endif

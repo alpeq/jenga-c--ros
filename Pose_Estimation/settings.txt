@@ -1,12 +1,12 @@
-0.375 
+0.375
 0.375					
 500.0
 0.000145
-../pointclouds/Filtered_PointClouds/filteredfig_middle_front.pcd
-../pointclouds/7k_abe_11x.pcd
+../pointclouds/ABE.pcd
 SPINIMAGES
-0.0085
-
+0.0035
+../pointclouds/Filtered_PointClouds/block_far_corner.pcd
+end
 
 [Above setting are in following order:]
 
@@ -22,3 +22,22 @@ Feature extraction method (in capitals)
 leafsize of the downsampler (density in points pr volume)
 
 WHere is bin size?
+
+
+../pointclouds/Filtered_PointClouds/block_middle_flat.pcd
+../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+../pointclouds/Filtered_PointClouds/block_near_corner.pcd
+../pointclouds/Filtered_PointClouds/fig_middle_front.pcd
+../pointclouds/Filtered_PointClouds/fig_ball_block_middle.pcd
+../pointclouds/Filtered_PointClouds/fig_middle_side.pcd
+../pointclouds/Filtered_PointClouds/block_far_corner.pcd
+../pointclouds/Filtered_PointClouds/fig_ball_middle.pcd
+../pointclouds/Filtered_PointClouds/Point clouds-20170518T134559Z-001.zip
+../pointclouds/Filtered_PointClouds/fig_ball_block_near.pcd
+../pointclouds/Filtered_PointClouds/fig_ball_block_far.pcd
+../pointclouds/Filtered_PointClouds/fig_far_side.pcd
+../pointclouds/Filtered_PointClouds/fig_ball_occ_middle.pcd
+../pointclouds/Filtered_PointClouds/fig_near_side.pcd
+../pointclouds/Filtered_PointClouds/ball_middle.pcd
+../pointclouds/Filtered_PointClouds/block_middle_corner.pcd
+
