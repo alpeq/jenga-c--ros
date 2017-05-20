@@ -23,6 +23,9 @@ INCLUDE_DIRECTORIES(${ROOT} ${ROBWORK_INCLUDE_DIR})
 # And now we add any targets that we want
 add_executable(pathPlanning pathPlanning.cpp)
 
+add_executable(standAlonePlan standAlonePlan.cpp)
+
+target_link_libraries(standAlonePlan ${ROBWORK_LIBRARIES})
 target_link_libraries(pathPlanning ${ROBWORK_LIBRARIES})
 
 LINK_DIRECTORIES("/usr/local/lib")
