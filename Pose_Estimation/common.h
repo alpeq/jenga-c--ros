@@ -72,7 +72,7 @@ void Select_INI();
 	return cloudNormals;
 }
 
-//Ransac
+//Ransac function; Most of which is based on Anders Glent Buch's code, which was provided in class
 Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene, pcl::Correspondences corr, int ransacItr, int inlierTrsh) {
 	cout << "Starting RANSAC..." << '\n';
   cout.flush();
