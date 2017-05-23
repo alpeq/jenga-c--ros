@@ -34,8 +34,7 @@ Eigen::Matrix4f FPFH(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<
 		nearest_feature(modelFPFH->points[i], *sceneFPFH, corr[i].index_match, corr[i].distance);
 	}
 
- Present_and_Report(t1,model, scene, corr, spinMatches);
- 
+ Present_and_Report(t1,model, scene, corr);
 	//Estimate the pose using RANSAC
 	Eigen::Matrix4f pose = RANSAC(model, scene, corr);
 
@@ -47,7 +46,7 @@ Eigen::Matrix4f FPFH(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<
 pcl::PointCloud<pcl::FPFHSignature33> ExtractFPFH(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float fpfhRadius) {
 	//If no FPFP radius is specified, use the standard value in the top of the document
 	if (fpfhRadius == -1)
-		fpfhRadius = FPFH_RADIUS;
+		fpfhRadius = FEATURE_RADIUS;
 
 	//Calculate cloud normals
 	pcl::PointCloud<pcl::Normal>::Ptr cloudNormals(new pcl::PointCloud<pcl::Normal>);

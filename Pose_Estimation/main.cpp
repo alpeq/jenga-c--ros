@@ -21,40 +21,55 @@ using namespace std::chrono;
 Eigen::Matrix4f select_feature_extraction(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene);
 int main (int argc, char* argv[]) {
 
-
-
 clog.rdbuf(ofs.rdbuf()); //Redirecting the clog buffer stream, to file
 
     cout << "Loading the input files...                                ";
     cout.flush();
 
-    Load_Settings();
-    /*
-    for (int h = 0; h < 2; h++) // for every model:
+      Load_Settings();
+
+    for (int h = 0; h < 3; h++) // for every model:
     {
-      if (h==0)
-      MODEL_PATH = "../pointclouds/ABE.pcd";
+        if (h==0){
+          MODEL_PATH = "../pointclouds/ABE.pcd";
+          Select_INI();
+        }
 
-      if (h==1)
-      MODEL_PATH = "../pointclouds/BALL.pcd";
+        if (h==1){
+          MODEL_PATH = "../pointclouds/BLOCK.pcd";
+          Select_INI();
+        }
 
-      if (h=2)
-      MODEL_PATH = "../pointclouds/BLOCK.pcd";
- */
-    for (int i = 0; i < pcds.size(); i++)
+        if (h==2) {
+          MODEL_PATH = "../pointclouds/BALL.pcd";
+          Select_INI();
+        }
+
+
+    for (int i = pcds.size()-1; i >= 0; i--)
   	{
+
+
+
       cout << "Loading scene: " << pcds[i] << "\n";
       clog << "Loading scene: " << pcds[i] << "\n";
-      SCENE_PATH=pcds[i];
+      cout << "Loading model: " << MODEL_PATH << "\n";
+      clog << "Loading model: " << MODEL_PATH << "\n";
+      SCENE_PATH=pcds.back();
+      pcds.pop_back();
 // if path is a folder make a list of the files and loop through
+
+
+
     //Read the input
     pcl::PointCloud<pcl::PointXYZ>::Ptr model (new pcl::PointCloud<pcl::PointXYZ>);
     pcl::PointCloud<pcl::PointXYZ>::Ptr scene (new pcl::PointCloud<pcl::PointXYZ>);
-    if (pcl::io::loadPCDFile<pcl::PointXYZ>(MODEL_PATH, *model) == -1 || pcl::io::loadPCDFile<pcl::PointXYZ>(SCENE_PATH, *scene) == -1) {
+      if (pcl::io::loadPCDFile<pcl::PointXYZ>(MODEL_PATH, *model) == -1 || pcl::io::loadPCDFile<pcl::PointXYZ>(SCENE_PATH, *scene) == -1)
+      {
         cout << "Error: Couldn't read file." << endl;
         clog << "Error: Couldn't read file." << '\n';
         return -1;
-    }
+      }
 
 FilterBackground(scene,scene);
 FilterTable(scene,scene);
@@ -66,13 +81,14 @@ DownSampler(model,model_ds);
 model = model_ds;
 
 	//Display initial state
+  /*
     pcl::visualization::PCLVisualizer init_view("Initial view");
     init_view.addPointCloud<pcl::PointXYZ>(scene, "Scene");
     init_view.addPointCloud<pcl::PointXYZ>(model, "Model");
 	init_view.spin();
-
+*/
   //Do the pose estimation using one of the feature extraction functions
-  cout << "Extracting Spin Image signatures from the model and scene...  " ;
+  cout << "Extracting "<< METHOD <<" Image signatures from the model and scene...  " ;
   cout.flush();
 
 high_resolution_clock::time_point t1 = high_resolution_clock::now();
@@ -134,8 +150,8 @@ clog.flush();
     pcl::io::savePCDFileASCII(MODEL_AND_POSE, *alignedModel);
 
 
-}
-//} //for model loop
+} //for scene loop
+} //for model loop
 } //main
 
 

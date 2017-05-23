@@ -11,7 +11,7 @@
 /***** This file contains the following functions *****/
 Eigen::Matrix4f SHOT(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene);
 pcl::PointCloud<pcl::SHOT352> ExtractSHOT(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float SHOTRadius = -1);
-void nearest_feature(const pcl::SHOT352 &query, const pcl::PointCloud<pcl::SHOT352> &target, int &idx, float &distsq);
+float nearest_feature(const pcl::SHOT352 &query, const pcl::PointCloud<pcl::SHOT352> &target, int &idx, float &distsq);
 inline float dist_sq(const pcl::SHOT352 &query, const pcl::SHOT352 &target);
 
 
@@ -26,6 +26,7 @@ Eigen::Matrix4f SHOT(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<
 	*modelSHOT = ExtractSHOT(model);
 	*sceneSHOT = ExtractSHOT(scene);
 
+
 	//Match the features
 	pcl::Correspondences corr(modelSHOT->size());
 	for(size_t i = 0; i < modelSHOT->size(); ++i) {
@@ -33,8 +34,8 @@ Eigen::Matrix4f SHOT(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<
 		nearest_feature(modelSHOT->points[i], *sceneSHOT, corr[i].index_match, corr[i].distance);
 	}
 
- Present_and_Report(t1,model, scene, corr, spinMatches);
- 
+ Present_and_Report(t1,model, scene, corr);
+
 	//Estimate the pose using RANSAC
 	Eigen::Matrix4f pose = RANSAC(model, scene, corr);
 
@@ -81,7 +82,7 @@ inline float dist_sq(const pcl::SHOT352 &query, const pcl::SHOT352 &target) {
 }
 
 
-void nearest_feature(const pcl::SHOT352 &query, const pcl::PointCloud<pcl::SHOT352> &target, int &idx, float &distsq) {
+float nearest_feature(const pcl::SHOT352 &query, const pcl::PointCloud<pcl::SHOT352> &target, int &idx, float &distsq) {
     idx = 0;
     distsq = dist_sq(query, target[0]);
     for(size_t i = 1; i < target.size(); ++i) {
@@ -90,7 +91,9 @@ void nearest_feature(const pcl::SHOT352 &query, const pcl::PointCloud<pcl::SHOT3
             idx = i;
             distsq = disti;
         }
+
     }
+		return distsq;
 }
 
 #endif

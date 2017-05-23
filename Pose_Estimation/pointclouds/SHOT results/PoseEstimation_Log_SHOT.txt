@@ -1,0 +1,424 @@
+
+<--------------------------------------------------------------------------------------------------------------- Sun May 21 20:25:58 2017
+Feature Method: SHOT
+Norm Radius: 13
+Feature Radius: 0.1
+Model:       all
+Ransac itr:     1000
+Inlier +/-:     5.0625e-06
+Leafsize:    0.005
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_near_side.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 1385.07 miliseconds
+Iterations of RANSAC = 	775 yields:
+
+	Pose inliers = 106
+	Score        = 4187.65		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+  0.203852  -0.978824  -0.018638  0.0504142
+ -0.423806 -0.0710686  -0.902961   0.060047
+  0.882515   0.191969  -0.429319   0.451242
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_near_side_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_near_side_pose_RESULT_1495391166.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_occ_middle.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 2283.84 miliseconds
+Iterations of RANSAC = 	613 yields:
+
+	Pose inliers = 113
+	Score        = 4464.2		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ -0.0979739   -0.993414   0.0594122    0.063375
+  -0.525235  0.00090801   -0.850957 -0.00454603
+   0.845299   -0.114577   -0.521865    0.569465
+          0           0           0           1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_occ_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_occ_middle_pose_RESULT_1495391174.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_far_side.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 1577.99 miliseconds
+Iterations of RANSAC = 	39 yields:
+
+	Pose inliers = 2
+	Score        = 79.0124		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+   -0.333824     0.623347    -0.707107    -0.297003
+    0.333824    -0.623347    -0.707107     0.164934
+   -0.881546    -0.472098 -3.55413e-08     0.479429
+           0            0            0            1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_far_side_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_far_side_pose_RESULT_1495391180.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_far.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 4050.03 miliseconds
+Iterations of RANSAC = 	843 yields:
+
+	Pose inliers = 83
+	Score        = 3279.01		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+-0.0998666   0.841968  -0.530205   0.301166
+ -0.437791   0.441336   0.783302 -0.0866938
+  0.893514   0.310345   0.324531   0.812006
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_far_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_far_pose_RESULT_1495391189.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_near.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 3005.78 miliseconds
+Iterations of RANSAC = 	433 yields:
+
+	Pose inliers = 82
+	Score        = 3239.51		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+  0.610826  -0.711787  -0.346773  0.0495096
+ -0.484952 0.00987214  -0.874485  0.0762471
+  0.625871   0.702326  -0.339152    0.43276
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_near_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_near_pose_RESULT_1495391202.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_middle.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 2179.77 miliseconds
+Iterations of RANSAC = 	244 yields:
+
+	Pose inliers = 91
+	Score        = 3595.06		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ -0.247481  -0.958593   0.140899  0.0587007
+ -0.514231 0.00670102  -0.857626 -0.0144233
+  0.821169  -0.284701  -0.494597   0.571452
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_middle_pose_RESULT_1495391210.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_middle_side.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 1670.59 miliseconds
+Iterations of RANSAC = 	821 yields:
+
+	Pose inliers = 133
+	Score        = 5254.32		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ 0.0642537  -0.997908 0.00710738  0.0456147
+ -0.551799 -0.0414619  -0.832946 0.00291016
+  0.831498   0.049598  -0.553309   0.560862
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_middle_side_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_middle_side_pose_RESULT_1495391217.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_middle.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 3641 miliseconds
+Iterations of RANSAC = 	222 yields:
+
+	Pose inliers = 3
+	Score        = 118.519		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ 0.707107  0.707107         0 -0.244212
+-0.162221  0.162221 -0.973328   0.15393
+-0.688247  0.688247  0.229416  0.477393
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_middle_pose_RESULT_1495391226.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_middle_front.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 1310.88 miliseconds
+Iterations of RANSAC = 	681 yields:
+
+	Pose inliers = 56
+	Score        = 2212.35		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ 0.717452 -0.686911  0.115833 0.0526895
+ -0.46715 -0.597779 -0.651485 0.0177425
+ 0.516753  0.413298 -0.749768  0.525265
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_middle_front_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_middle_front_pose_RESULT_1495391232.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Loading model: ../pointclouds/ABE.pcd
+SHOT took: 3178.94 miliseconds
+Iterations of RANSAC = 	611 yields:
+
+	Pose inliers = 110
+	Score        = 4345.68		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ 0.665878 -0.737502  0.112685 0.0946122
+-0.419686 -0.495158 -0.760711 0.0510423
+ 0.616823  0.459249 -0.639234  0.485612
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495391242.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/block_middle_corner.pcd
+Loading model: ../pointclouds/BLOCK.pcd
+SHOT took: 2532.65 miliseconds
+Iterations of RANSAC = 	975 yields:
+
+	Pose inliers = 184
+	Score        = 7269.14		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+  -0.747432   0.0493824   -0.662501   0.0480568
+  -0.293227    0.870314    0.395691 -0.00117079
+   0.596124    0.490015    -0.63602     0.51899
+          0           0           0           1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/block_middle_corner_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/block_middle_corner_pose_RESULT_1495391252.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_far.pcd
+Loading model: ../pointclouds/BLOCK.pcd
+SHOT took: 4308.56 miliseconds
+Iterations of RANSAC = 	282 yields:
+
+	Pose inliers = 162
+	Score        = 6400		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ 0.951207 0.0218777 -0.307777   0.32312
+-0.173136  0.863495 -0.473709 -0.191432
+   0.2554  0.503883   0.82515  0.784516
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_far_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_far_pose_RESULT_1495391262.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_near.pcd
+Loading model: ../pointclouds/BLOCK.pcd
+SHOT took: 3202.31 miliseconds
+Iterations of RANSAC = 	894 yields:
+
+	Pose inliers = 98
+	Score        = 3871.61		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+  0.65624   0.34465 -0.671242 0.0147326
+-0.342277  0.928769   0.14225 0.0659466
+ 0.672455  0.136401  0.727461  0.454343
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_near_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_near_pose_RESULT_1495391275.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/block_far_corner.pcd
+Loading model: ../pointclouds/BLOCK.pcd
+SHOT took: 2239.78 miliseconds
+Iterations of RANSAC = 	801 yields:
+
+	Pose inliers = 101
+	Score        = 3990.12		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+  0.970247   0.231604  0.0705724   0.304861
+  0.159615  -0.831029   0.532835 -0.0708804
+  0.182054  -0.505717  -0.843271   0.885741
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/block_far_corner_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/block_far_corner_pose_RESULT_1495391282.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_middle.pcd
+Loading model: ../pointclouds/BLOCK.pcd
+SHOT took: 3881.79 miliseconds
+Iterations of RANSAC = 	7 yields:
+
+	Pose inliers = 2
+	Score        = 79.0124		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ 0.980581  0.196116         0 -0.284573
+-0.196116  0.980581         0  0.101947
+        0         0         1     0.476
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_middle_pose_RESULT_1495391292.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/block_near_corner.pcd
+Loading model: ../pointclouds/BLOCK.pcd
+SHOT took: 2567.28 miliseconds
+Iterations of RANSAC = 	801 yields:
+
+	Pose inliers = 147
+	Score        = 5807.41		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+  0.788094   0.170644   0.591429 0.00867575
+ -0.102065  -0.911281   0.398935    0.18088
+  0.607034  -0.374763  -0.700758   0.482047
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/block_near_corner_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/block_near_corner_pose_RESULT_1495391303.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
+Loading model: ../pointclouds/BLOCK.pcd
+SHOT took: 3400.6 miliseconds
+Iterations of RANSAC = 	976 yields:
+
+	Pose inliers = 139
+	Score        = 5491.36		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+  -0.238871  -0.0130988    0.970963   0.0923536
+   0.498195    0.856629     0.13412 0.000625052
+  -0.833512    0.515767   -0.198098    0.519094
+          0           0           0           1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_block_occ_middle_pose_RESULT_1495391314.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/block_middle_flat.pcd
+Loading model: ../pointclouds/BLOCK.pcd
+SHOT took: 1902.47 miliseconds
+Iterations of RANSAC = 	629 yields:
+
+	Pose inliers = 144
+	Score        = 5688.89		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ -0.101399   0.117777   -0.98785 0.00659248
+ -0.506347   0.848621   0.153152 -0.0121568
+  0.856347   0.515725 -0.0264133   0.479742
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/block_middle_flat_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/block_middle_flat_pose_RESULT_1495391323.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_occ_middle.pcd
+Loading model: ../pointclouds/BALL.pcd
+SHOT took: 1470.96 miliseconds
+Iterations of RANSAC = 	456 yields:
+
+	Pose inliers = 31
+	Score        = 1224.69		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ 0.0206057 -0.0412114  -0.998938  0.0505165
+ -0.446739   0.893477 -0.0460757  0.0373205
+  0.894427   0.447214          0   0.621608
+         0          0          0          1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_occ_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_occ_middle_pose_RESULT_1495391330.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_far.pcd
+Loading model: ../pointclouds/BALL.pcd
+SHOT took: 2934.61 miliseconds
+Iterations of RANSAC = 	511 yields:
+
+	Pose inliers = 2
+	Score        = 79.0124		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+ 0.273512  0.898512  0.343318  0.326721
+-0.874159 0.0832866  0.478445 -0.126323
+ 0.401295 -0.430975  0.808222  0.905388
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_far_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_far_pose_RESULT_1495391336.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_near.pcd
+Loading model: ../pointclouds/BALL.pcd
+SHOT took: 2126.46 miliseconds
+Iterations of RANSAC = 	963 yields:
+
+	Pose inliers = 56
+	Score        = 2212.35		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+-0.857493  0.514496         0 0.0810845
+-0.514496 -0.857493         0  0.158939
+        0         0         1  0.487193
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_near_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_near_pose_RESULT_1495391347.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_middle.pcd
+Loading model: ../pointclouds/BALL.pcd
+SHOT took: 1490.58 miliseconds
+Iterations of RANSAC = 	614 yields:
+
+	Pose inliers = 52
+	Score        = 2054.32		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+    0.456625    0.0501958    -0.888242    0.0287505
+   -0.872362    -0.170655    -0.458105 -0.000210462
+   -0.174578     0.984051   -0.0341366     0.586026
+           0            0            0            1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_middle_pose_RESULT_1495391353.pcd -fc 0,255,0
+
+
+Loading scene: ../pointclouds/Filtered_PointClouds/fig_ball_block_middle.pcd
+Loading model: ../pointclouds/BALL.pcd
+SHOT took: 2616.51 miliseconds
+Iterations of RANSAC = 	12 yields:
+
+	Pose inliers = 1
+	Score        = 39.5062		 (inliers / threshold * C_downsampling) 
+
+Pose Transformation:
+        1         0         0  -0.23187
+        0  0.341743  0.939793  0.174201
+        0 -0.939793  0.341743  0.450744
+        0         0         0         1
+
+To view result, run: 
+pcl_viewer ../pointclouds/Filtered_PointClouds/fig_ball_block_middle_0.005000_Filtered.pcd -fc 255,0,0 ../pointclouds/Filtered_PointClouds/fig_ball_block_middle_pose_RESULT_1495391360.pcd -fc 0,255,0
+
+

@@ -14,7 +14,6 @@ pcl::PointCloud<pcl::ShapeContext1980> ExtractUSC(pcl::PointCloud<pcl::PointXYZ>
 void nearest_feature(const pcl::ShapeContext1980 &query, const pcl::PointCloud<pcl::ShapeContext1980> &target, int &idx, float &distsq);
 inline float dist_sq(const pcl::ShapeContext1980 &query, const pcl::ShapeContext1980 &target);
 
-
 Eigen::Matrix4f USC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene) {
 	//take time
 		high_resolution_clock::time_point t1 = high_resolution_clock::now();
@@ -34,8 +33,8 @@ Eigen::Matrix4f USC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<p
 	}
 
 
- Present_and_Report(t1,model, scene, corr, spinMatches);
- 
+ Present_and_Report(t1,model, scene, corr);
+
 	//Estimate the pose using RANSAC
 	Eigen::Matrix4f pose = RANSAC(model, scene, corr);
 

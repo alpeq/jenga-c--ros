@@ -37,6 +37,8 @@ float FEATURE_RADIUS = 0.0;
 float RANSAC_ITR = 0.0;
 float INLIER_TRSH = 0.0;
 float LEAFSIZE = 0.0;
+float MULTIPLIER = 0.0;
+bool VISUALIZATOR=false;
 
 
 
@@ -47,12 +49,11 @@ void DownSampler(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, pcl::PointCloud<p
 void Load_Settings(); //function definition placeholder
 float user_input();
 string ReplaceStringInPlace(std::string& subject, const std::string& search,const std::string& replace);
+void Select_INI();
 
-//Compute normals function
-pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float normRadius) {
-	//If no raduis is specified for calculating the normals, use the standard value defined in the beginning of this file
-	if (normRadius == -1)
-		normRadius = NORM_RADIUS;
+
+	//Compute normals function
+	pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud, float normRadius) {
 
 	//Create the normal estimator and the kdtree used as a search method
 	pcl::NormalEstimation<pcl::PointXYZ, pcl::Normal> normalEstimator;
@@ -60,7 +61,8 @@ pcl::PointCloud<pcl::Normal> computeNormals(pcl::PointCloud<pcl::PointXYZ>::Ptr 
 
 	//Set the attributes
 	normalEstimator.setInputCloud(cloud);
-	normalEstimator.setRadiusSearch(normRadius);
+	//normalEstimator.setRadiusSearch(normRadius);
+	normalEstimator.setKSearch(NORM_RADIUS);
 	normalEstimator.setSearchMethod(kdtree);
 
 	//Compute the cloud normals
@@ -76,16 +78,17 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
   cout.flush();
 
 	Eigen::Matrix4f pose = Eigen::Matrix4f::Identity();
-
+/*
 	while (true)
 	{
-	//Prepare for RANSAC
+*/	//Prepare for RANSAC
     	pcl::search::KdTree<pcl::PointXYZ> scene_tree;			//Create a k-d tree for scene
     	scene_tree.setInputCloud(scene);
 	//Create Matrix to save the pose
 	PointCloud<pcl::PointXYZ>::Ptr model_aligned(new pcl::PointCloud<pcl::PointXYZ>);		//Create a new point cloud for the aligned result
 	// Start RANSAC
 	float penalty = FLT_MAX;
+	int maxinliers= 0;
 	int RANSACS=0;
 	size_t INLIERS = 0;
 
@@ -119,21 +122,16 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 
 		// Compute inliers and RMSE
 		size_t inliers = 0;
-		float rmse = 0;
 		for(size_t j = 0; j < distsq.size(); ++j)
 			if(distsq[j][0] <= INLIER_TRSH)
-				++inliers, rmse += distsq[j][0];
-		rmse = sqrtf(rmse / inliers);
+				++inliers;
 
-		// Evaluate a penalty function
-		const float outlier_rate = 1.0f - float(inliers) / model->size();
-		//const float penaltyi = rmse;
-		const float penaltyi = outlier_rate;
+
 
 		// Update result
-		if(penaltyi < penalty) {
+		if(maxinliers < inliers) {
 			cout << "\t" << "New pose found with " << inliers << " inliers." << endl;
-			penalty = penaltyi;
+			maxinliers = inliers;
 			pose = transformation_matrix;
 			INLIERS= inliers;
 			RANSACS=i;
@@ -154,7 +152,7 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 
 	transformPointCloud(*model, *model_aligned, pose);
 
-
+if (VISUALIZATOR==1) {
 	//View result
 	visualization::PCLVisualizer result_viewer("Result");
 	//visualization::PointCloudColorHandlerCustom<pcl::PointXYZ> single_color (model_aligned, 0, 255, 0);
@@ -162,10 +160,10 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 	result_viewer.addPointCloud<PointXYZ>(scene, "Scene");
 
 	result_viewer.spin();
-
+}
 	cout << "<------------------------------------------->\n \n";
 
-
+/* // code for reusing feature extraction results in ransac
 	string input=("1");
 	//int NEW_RANSAC_ITR=0;
 	cout << "Input new Ransac Inlier threshold (float), or Press [0] to exit\n";
@@ -185,7 +183,7 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 
 	cout <<  "How many Ransac iterations? (int) \n";
 			float NEW_RANSAC_ITR= user_input();
-	clog << "Reusing Spin Images with Inlier threshold of: \n\t" << NEW_INLIER_TRSH << " and " <<NEW_RANSAC_ITR << " ransac iterations \n";
+	clog << "Reusing feature images with Inlier threshold of: \n\t" << NEW_INLIER_TRSH << " and " <<NEW_RANSAC_ITR << " ransac iterations \n";
 	cout.flush();
 	clog.flush();
 
@@ -193,7 +191,7 @@ Eigen::Matrix4f RANSAC(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointClou
 	RANSAC_ITR=NEW_RANSAC_ITR;
 
 	}
-
+*/
 	return pose;
 
 }
@@ -208,35 +206,14 @@ void DownSampler(pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_in, pcl::PointCloud<p
 
 void Load_Settings() {
 	string path = "../settings.txt";
-	ifstream fin;                          // Declaring an input stream object
-	fin.open(path);                        // Open the file //path.c_str()
-	if(fin.is_open())                      // If it opened successfully
+	ifstream fin;
+	fin.open(path);
+	if(fin.is_open())
 	{
 		fin >> NORM_RADIUS >> FEATURE_RADIUS >> RANSAC_ITR
-		 		>> INLIER_TRSH >> MODEL_PATH >> METHOD >> LEAFSIZE;  // Read the values and
-	// store them in these variables
+		 		>> INLIER_TRSH >> MODEL_PATH >> METHOD >> LEAFSIZE >> SCENE_PATH >> MULTIPLIER >> VISUALIZATOR;
 
-	string file_paths = ReplaceStringInPlace(MODEL_PATH, ".pcd", ".ini");
-	ifstream fin2;
-
-	fin2.open(file_paths);
-	if(fin2.is_open())
-	{
-		while (true){
-			getline(fin2, path);
-			if (path.compare("end") == 0)
-					break;
-			else {
-				pcds.push_back(path);
-						}
-					}
-			fin2.close();
-string BackToOriginal = ReplaceStringInPlace(MODEL_PATH, ".ini", ".pcd");
-				}
-		else {
-			cerr << "Error opening .ini file" << '\n';
-		}
-
+	INLIER_TRSH=(LEAFSIZE*MULTIPLIER)*(LEAFSIZE*MULTIPLIER);
 		fin.close();
 
 	}
@@ -268,31 +245,55 @@ string BackToOriginal = ReplaceStringInPlace(MODEL_PATH, ".ini", ".pcd");
 
 }
 
-void Present_and_Report(high_resolution_clock::time_point t1,pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene, pcl::Correspondences corr, int spinMatches) {
-// Remember to add before extraction and matching high_resolution_clock::time_point t1 = high_resolution_clock::now();
+void Present_and_Report(high_resolution_clock::time_point t1,pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene, pcl::Correspondences corr) {
  high_resolution_clock::time_point t2 = high_resolution_clock::now();
  auto duration = duration_cast<microseconds>( t2 - t1 ).count();
 
  // Show matches
 	cout <<"Done!"<< '\n';
+	cout.flush();
+
+	//report number of matches to console and log
+	 cout << METHOD <<" took: "<<duration/1000.0 <<" miliseconds\n";
+	 clog << METHOD <<" took: "<<duration/1000.0 <<" miliseconds\n";
+	 cout <<"Done!" <<'\n';
+	 cout.flush();
+	 clog.flush();
+
+if (VISUALIZATOR==1) {
 visualization::PCLVisualizer match_viewer("Matches");
 match_viewer.addPointCloud<PointXYZ>(model, "Model");
 match_viewer.addPointCloud<PointXYZ>(scene, "Scene");
 match_viewer.addCorrespondences<PointXYZ>(model, scene, corr, 1);
 match_viewer.spin();
-
-//report number of matches to console and log
- cout << METHOD <<" took: "<<duration/1000.0 <<" miliseconds\n";
- cout << METHOD << " Found " << spinMatches << " matches!\n";
- clog << METHOD <<" took: "<<duration/1000.0 <<" miliseconds\n";
- clog << METHOD << " Found " << spinMatches << " matches!\n";
- cout <<"Done!" <<'\n';
- cout.flush();
- clog.flush();
 }
 
+}
 
-//This function does not work as intended now, but does not harm either, we leave it for future improvement
+void Select_INI(){
+string file_paths = ReplaceStringInPlace(MODEL_PATH, ".pcd", ".ini"); //load .ini setting for each model
+string path;
+ifstream fin2;
+cout << "using scenes from " << MODEL_PATH;
+fin2.open(file_paths);
+if(fin2.is_open())
+{
+	while (true){
+		getline(fin2, path);
+		if (path.compare("end") == 0)
+				break;
+		else {
+			pcds.push_back(path);
+					}
+				}
+		fin2.close();
+string BackToOriginal = ReplaceStringInPlace(MODEL_PATH, ".ini", ".pcd");
+			}
+	else {
+		cerr << "Error opening .ini file" << '\n';
+	}
+}
+
 
 float user_input() {
 	float user_in;

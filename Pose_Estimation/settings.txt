@@ -1,46 +1,28 @@
-0.05
-0.05					
+5
+0.5
 1000.0
-0.000145
-../pointclouds/ABE.pcd
-FPFH
-0.0075
-../pointclouds/Filtered_PointClouds/block_far_corner.pcd
-end
+0
+all
+SPINIMAGES
+0.005
+../pointclouds/Filtered_PointClouds/fig_ball_block_middle.pcd
+0.45
+1
 
 [Above setting are in following order:]
+NORMRADIUS (nr nearest neighbors?)
+FEATURE RADIUS
+RANSAC ITR
+THRESHOLD(disabled)
+MODEL
+METHOD
+RESOLUTION
+SCENE
+THRESHOLD MULTIPLIER
 
-Norm radius // height of the norm. 0.2 seems to be fast 0.375 seems to be good 
-feature radius // norm x feature radius gives the square  0.2 seems to be fast 0.375 seems to be good	
-//bigger values give more specificity but also more computation time, on the other hand time vested here, saves time due to less poossible configurations.
 
-Ransac iterations
-Inlier threshold // 0.00000155 has given the best results so far. 
-Scene path
-model path
-Feature extraction method (in capitals)
-leafsize of the downsampler (density in points pr volume)
-
-WHere is bin size?
-
-list of files
-../pointclouds/Filtered_PointClouds/block_middle_flat.pcd
-../pointclouds/Filtered_PointClouds/fig_block_occ_middle.pcd
-../pointclouds/Filtered_PointClouds/block_near_corner.pcd
-../pointclouds/Filtered_PointClouds/fig_middle_front.pcd
-../pointclouds/Filtered_PointClouds/fig_ball_block_middle.pcd
-../pointclouds/Filtered_PointClouds/fig_middle_side.pcd
-../pointclouds/Filtered_PointClouds/block_far_corner.pcd
-../pointclouds/Filtered_PointClouds/fig_ball_middle.pcd
-../pointclouds/Filtered_PointClouds/Point clouds-20170518T134559Z-001.zip
-../pointclouds/Filtered_PointClouds/fig_ball_block_near.pcd
-../pointclouds/Filtered_PointClouds/fig_ball_block_far.pcd
-../pointclouds/Filtered_PointClouds/fig_far_side.pcd
-../pointclouds/Filtered_PointClouds/fig_ball_occ_middle.pcd
-../pointclouds/Filtered_PointClouds/fig_near_side.pcd
-../pointclouds/Filtered_PointClouds/ball_middle.pcd
-../pointclouds/Filtered_PointClouds/block_middle_corner.pcd
-
-findings
-norm og spin radis for ball skal være ca 0.15
-size of ball is 67.5mm dia
+[possible methods to invoke]
+FPFH 		
+SPINIMAGES
+SHOT
+USC

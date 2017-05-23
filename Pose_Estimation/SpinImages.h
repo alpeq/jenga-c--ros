@@ -8,8 +8,8 @@
 
 #include "common.h"
 
-//#define SPIN_RADIUS			0.1 //not really necessary?
-//int BIN_SIZE = 0;
+#define SPIN_RADIUS	FEATURE_RADIUS
+
 
 
 
@@ -20,7 +20,6 @@ pcl::PointCloud<pcl::Histogram<153> > ExtractSpinImages(pcl::PointCloud<pcl::Poi
 inline float dist_sq(const pcl::Histogram<153> &query, const pcl::Histogram<153> &target);
 void nearest_feature(const pcl::Histogram<153> &query, const pcl::PointCloud<pcl::Histogram<153> > &target, int &idx, float &distsq);
 
-int spinMatches =0;
 //spin images:
 Eigen::Matrix4f SpinImages(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::PointCloud<pcl::PointXYZ>::Ptr scene) {
 
@@ -45,10 +44,10 @@ Eigen::Matrix4f SpinImages(pcl::PointCloud<pcl::PointXYZ>::Ptr model, pcl::Point
 	for(size_t i = 0; i < modelImages->size(); ++i) {
 		corr[i].index_query = i;
 		nearest_feature(modelImages->points[i], *sceneImages, corr[i].index_match, corr[i].distance);
-		spinMatches= i;
+
 	}
 
- Present_and_Report(t1,model, scene, corr, spinMatches);
+ Present_and_Report(t1,model, scene, corr);
 
 	//Estimate the pose using RANSAC
 	Eigen::Matrix4f pose = RANSAC(model, scene, corr);
@@ -70,7 +69,7 @@ pcl::PointCloud<pcl::Histogram<153> > ExtractSpinImages(pcl::PointCloud<pcl::Poi
 	*cloudNormals = computeNormals(cloud);
 
 	//Set attributes
-	image_spinner.setRadiusSearch(spinRadius);
+	image_spinner.setRadiusSearch(SPIN_RADIUS);
 	image_spinner.setInputCloud(cloud);
 	image_spinner.setInputNormals(cloudNormals);
 
@@ -89,11 +88,7 @@ inline float dist_sq(const pcl::Histogram<153> &query, const pcl::Histogram<153>
     return result;
 }
 
-/*
-cout <<"Done!"<< '\n';
-clog << "Normals, extraction, and matching done in time: \n";
-cout.flush();
-*/
+
 
 void nearest_feature(const pcl::Histogram<153> &query, const pcl::PointCloud<pcl::Histogram<153> > &target, int &idx, float &distsq) {
     idx = 0;
@@ -105,6 +100,7 @@ void nearest_feature(const pcl::Histogram<153> &query, const pcl::PointCloud<pcl
             distsq = disti;
         }
     }
+
 }
 
 
